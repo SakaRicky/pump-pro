@@ -1,0 +1,80 @@
+{
+  "admin": {
+    "defaultMessage": "Admin"
+  },
+  "daily": {
+    "defaultMessage": "Daily"
+  },
+  "dashboard": {
+    "defaultMessage": "Dashboard",
+    "description": "Main title for the Dashboard page"
+  },
+  "form.worker.heading": {
+  },
+  "login": {
+    "defaultMessage": "Login"
+  },
+  "login.error.password": {
+  },
+  "login.error.phone": {
+  },
+  "login.error.username": {
+  },
+  "login.welcome": {
+    "defaultMessage": "Welcome to PumpPro"
+  },
+  "perfomance": {
+    "defaultMessage": "Perfomance"
+  },
+  "product.card.addToCart": {
+    "defaultMessage": "Add To Chart"
+  },
+  "products": {
+    "defaultMessage": "Products"
+  },
+  "sales": {
+    "defaultMessage": "Sales"
+  },
+  "shop": {
+    "defaultMessage": "Shop"
+  },
+  "upload.upload": {
+    "defaultMessage": "Upload Picture"
+  },
+  "user.info.cni_number": {
+    "defaultMessage": "CNI Number"
+  },
+  "user.info.date_of_birth": {
+    "defaultMessage": "Date of Birth"
+  },
+  "user.info.gender": {
+    "defaultMessage": "Gender"
+  },
+  "user.info.godfather_phone": {
+    "defaultMessage": "Godfather Phone Number"
+  },
+  "user.info.localisation": {
+    "defaultMessage": "Localisation"
+  },
+  "user.info.names": {
+    "defaultMessage": "Names"
+  },
+  "user.info.phone": {
+    "defaultMessage": "Phone Number"
+  },
+  "user.info.role": {
+    "defaultMessage": "Role"
+  },
+  "user.info.salary": {
+    "defaultMessage": "Salary"
+  },
+  "worker.card.menu.delete": {
+    "defaultMessage": "Delete Worker"
+  },
+  "worker.card.menu.edit": {
+    "defaultMessage": "Edit Worker"
+  },
+  "workers": {
+    "defaultMessage": "Workers"
+  }
+}
