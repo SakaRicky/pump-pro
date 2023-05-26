@@ -14,9 +14,11 @@ export const authenticateUser = async (
 ) => {
 	try {
 		const body = req.body as LogginUser;
-		console.log("🚀 ~ file: auth.ts:17 ~ body", body);
 		const user = await prisma.user.findUnique({
-			where: { username: body.username }
+			where: { username: body.username },
+			include: {
+				messages: true
+			}
 		});
 
 		const allowedRoles = ["ADMIN", "SALE"];
@@ -43,17 +45,19 @@ export const authenticateUser = async (
 
 		const token = createJWTToken(user);
 		return res.status(200).send({
+			id: user?.id,
 			username: user.username,
 			role: user.role,
 			profilePicture: user.profile_picture,
-			token: token
+			token: token,
+			messages: user.messages
 		});
 	} catch (error) {
 		next(error);
 	}
 };
 
-export const verifyUser = (
+export const verifyUser = async (
 	req: RequestWithToken,
 	res: Response,
 	next: NextFunction
@@ -65,7 +69,22 @@ export const verifyUser = (
 		if (!decodedToken.id) {
 			return res.status(401).json({ error: "token missing or invalid" });
 		}
-		return res.send({ isAuthenticated: true });
+		const user = await prisma.user.findUnique({
+			where: { id: decodedToken.id },
+			include: {
+				messages: true
+			}
+		});
+
+		const authUser = {
+			id: user?.id,
+			username: user?.username,
+			role: user?.role,
+			profilePicture: user?.profile_picture,
+			token: token,
+			messages: user?.messages
+		};
+		return res.send({ user: authUser, isAuthenticated: true });
 	} catch (error) {
 		next(error);
 	}

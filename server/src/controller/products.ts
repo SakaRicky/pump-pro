@@ -9,7 +9,21 @@ import { NewProduct } from "../types";
 
 const prisma = new PrismaClient();
 
-export const getProducts = async (_req: Request, res: Response) => {
+interface RequestQuery {
+	categoryID: string | undefined;
+}
+
+export const getProducts = async (
+	req: Request<unknown, unknown, unknown, RequestQuery>,
+	res: Response
+) => {
+	const { categoryID } = req.query as RequestQuery;
+	let where;
+	if (categoryID) {
+		where = {
+			category_id: { equals: categoryID }
+		};
+	}
 	const allProducts = await prisma.product.findMany({
 		select: {
 			id: true,
@@ -18,11 +32,13 @@ export const getProducts = async (_req: Request, res: Response) => {
 			quantity: true,
 			purchase_price: true,
 			selling_price: true,
-			reorder_point: true,
+			low_stock_threshold: true,
 			category: true,
 			image: true,
-			created_at: true
-		}
+			created_at: true,
+			updatedAt: true
+		},
+		where: where
 	});
 
 	return res.send(allProducts);
@@ -42,10 +58,11 @@ export const getOneProduct = async (req: Request, res: Response) => {
 			quantity: true,
 			purchase_price: true,
 			selling_price: true,
-			reorder_point: true,
+			low_stock_threshold: true,
 			category: true,
 			image: true,
-			created_at: true
+			created_at: true,
+			updatedAt: true
 		}
 	});
 	return res.send(productFound);
@@ -57,18 +74,25 @@ export const saveProduct = async (req: RequestWithToken, res: Response) => {
 	const fileSavedName = fileUrl.split("/").pop();
 
 	if (newProduct) {
-		await prisma.product.create({
+		const savedProduct = await prisma.product.create({
 			data: {
 				name: newProduct.name,
 				category_id: newProduct.category_id,
 				description: newProduct.description,
 				purchase_price: newProduct.purchase_price,
 				quantity: newProduct.quantity,
-				reorder_point: newProduct.reorder_point,
+				low_stock_threshold: newProduct.low_stock_threshold,
 				selling_price: newProduct.selling_price,
 				image: req.file
 					? `http://localhost:5001/images/products/${fileSavedName}`
 					: ""
+			}
+		});
+
+		await prisma.purchase.create({
+			data: {
+				product_id: savedProduct.id,
+				quantity: savedProduct.quantity
 			}
 		});
 		return res.sendStatus(200);
@@ -79,6 +103,7 @@ export const updateProduct = async (req: RequestWithToken, res: Response) => {
 	const editedProduct = validateEditedProduct(req.body) as NewProduct & {
 		id: string;
 	};
+
 	const fileUrl = `${req.protocol}://${req.get("host")}/${req.file?.path}`;
 	const fileSavedName = fileUrl.split("/").pop();
 
@@ -91,11 +116,11 @@ export const updateProduct = async (req: RequestWithToken, res: Response) => {
 				description: editedProduct.description,
 				purchase_price: editedProduct.purchase_price,
 				quantity: editedProduct.quantity,
-				reorder_point: editedProduct.reorder_point,
+				low_stock_threshold: editedProduct.low_stock_threshold,
 				selling_price: editedProduct.selling_price,
 				image: req.file
-					? `http://localhost:5001/images/users/${fileSavedName}`
-					: ""
+					? `http://localhost:5001/images/products/${fileSavedName}`
+					: editedProduct.image
 			}
 		});
 		return res.sendStatus(200);

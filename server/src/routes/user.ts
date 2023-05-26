@@ -12,7 +12,7 @@ import { checkIfAdmin } from "../../middlewares/jwt";
 
 const usersRoute = express.Router();
 
-usersRoute.get("/", asyncHandler(getUsers as RequestHandler));
+usersRoute.get("/", asyncHandler(getUsers as unknown as RequestHandler));
 usersRoute.get("/:id", asyncHandler(getOneUser as RequestHandler));
 
 usersRoute.post(

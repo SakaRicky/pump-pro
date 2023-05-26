@@ -11,12 +11,10 @@ export const loginUser = async (values: {
 };
 
 export const verifyAuthUser = async (): Promise<
-	| {
-			isAuthenticated: boolean;
-	  }
-	| undefined
+	{ user: LogedUser; isAuthenticated: boolean } | undefined
 > => {
 	const { data: userAuthStatus } = await api.get<{
+		user: LogedUser;
 		isAuthenticated: boolean;
 	}>(`/auth/user`);
 	return userAuthStatus;

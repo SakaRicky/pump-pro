@@ -10,7 +10,6 @@ import {
 import { LogedUser } from "types";
 import FlexBetween from "./FlexBetween";
 import {
-	AdminPanelSettings,
 	ChevronLeft,
 	Home,
 	LocalGasStation,
@@ -24,48 +23,57 @@ import SidebarNavItem from "./SidebarNavItem";
 import { blue } from "@mui/material/colors";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import InventoryIcon from "@mui/icons-material/Inventory";
+import InvertColorsIcon from "@mui/icons-material/InvertColors";
 
 const navItems = [
 	{
 		text: "Dashboard",
+		url: "dashboard",
 		icon: <Home />,
 		translate: <FormattedMessage id="dashboard" defaultMessage="Dashboard" />
 	},
 	{
 		text: "Products",
+		url: "products",
 		icon: <InventoryIcon />,
 		translate: <FormattedMessage id="products" defaultMessage="Products" />
 	},
 
 	{
 		text: "Shop",
+		url: "shop",
 		icon: <ShoppingBagIcon />,
 		translate: <FormattedMessage id="shop" defaultMessage="Shop" />
 	},
 
 	{
 		text: "Sales",
+		url: "sales",
 		icon: <ReceiptLong />,
 		translate: <FormattedMessage id="sales" defaultMessage="Sales" />
 	},
 	{
-		text: "Daily",
+		text: "Sale Form",
+		url: "salesform",
 		icon: <Today />,
-		translate: <FormattedMessage id="daily" defaultMessage="Daily" />
+		translate: <FormattedMessage id="salesform" defaultMessage="Sale Form" />
 	},
 
 	{
-		text: "Admin",
-		icon: <AdminPanelSettings />,
-		translate: <FormattedMessage id="admin" defaultMessage="Admin" />
+		text: "Fuels",
+		url: "fuels",
+		icon: <InvertColorsIcon />,
+		translate: <FormattedMessage id="fuels" defaultMessage="Fuels" />
 	},
 	{
 		text: "Perfomance",
+		url: "perfomances",
 		icon: <TrendingUp />,
 		translate: <FormattedMessage id="perfomance" defaultMessage="Perfomance" />
 	},
 	{
 		text: "Workers",
+		url: "workers",
 		icon: <GroupsIcon />,
 		translate: <FormattedMessage id="workers" defaultMessage="Workers" />
 	}
@@ -87,7 +95,7 @@ const Sidebar = ({
 	const theme = useTheme();
 
 	return (
-		<Box component="nav" sx={{ boxShadow: 0 }}>
+		<Box component="nav" sx={{ boxShadow: 3 }}>
 			{isSidebarOpen && (
 				<Drawer
 					open={isSidebarOpen}
@@ -127,20 +135,19 @@ const Sidebar = ({
 									<LocalGasStation sx={{ width: "2rem", height: "2rem" }} />
 								</Box>
 							</Box>
-							{!isNonMobile && (
-								<IconButton onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
-									<ChevronLeft />
-								</IconButton>
-							)}
+							<IconButton onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
+								<ChevronLeft />
+							</IconButton>
 						</FlexBetween>
 					</Box>
 					<List
 						sx={{ ml: 4, display: "flex", flexDirection: "column", gap: 2 }}
 					>
-						{navItems.map(({ text, icon, translate }) => {
+						{navItems.map(({ text, icon, translate, url }) => {
 							return (
 								<SidebarNavItem
 									key={text}
+									url={url}
 									text={text}
 									icon={icon}
 									translate={translate}

@@ -1,21 +1,32 @@
-import { Box, useTheme } from "@mui/material";
-import { DataGrid, GridColDef, GridSelectionModel } from "@mui/x-data-grid";
+import { alpha, Box, useTheme } from "@mui/material";
+import {
+	DataGrid,
+	GridColDef,
+	GridEventListener,
+	GridSelectionModel
+} from "@mui/x-data-grid";
 import DataGridCustomToolbar from "components/DataGridCustumToolbar";
 import React, { useState } from "react";
-import { Product } from "types";
+import { DailySale, Fuel, Product, Sale, SalesSummary } from "types";
 
 type ProductsDataGridProps = {
 	isLoading: boolean;
-	rows: Product[] | undefined;
+	checkboxSelection?: boolean;
+	rows: (Product | Sale | SalesSummary | DailySale | Fuel)[];
+	searchInput?: boolean; // used to enable seach functionality
 	columns: GridColDef<any, any, any>[];
 	handleSelected?: (ids: GridSelectionModel) => void;
+	handleRowClick?: GridEventListener<"rowClick">;
 };
 
-const ProductsDataGrid = ({
+const MyDataGrid = ({
 	isLoading,
 	rows,
+	checkboxSelection,
 	columns,
-	handleSelected
+	searchInput,
+	handleSelected,
+	handleRowClick
 }: ProductsDataGridProps) => {
 	const theme = useTheme();
 
@@ -23,7 +34,7 @@ const ProductsDataGrid = ({
 
 	const filteredRows =
 		search.length > 0
-			? rows?.filter(
+			? (rows as Product[]).filter(
 					product =>
 						product.name
 							.toLocaleLowerCase()
@@ -38,22 +49,35 @@ const ProductsDataGrid = ({
 		<Box
 			mt="1rem"
 			height="75vh"
+			width="100%"
 			sx={{
 				"& .MuiDataGrid-root": {
 					border: `4px solid ${theme.palette.secondary.main}`
 				},
 				"& .MuiDataGrid-columnHeaders": {
-					backgroundColor: theme.palette.background.alt,
-					color: theme.palette.secondary[200],
-					borderBottom: "none"
+					backgroundColor: alpha(theme.palette.secondary[600], 0.4),
+					color: theme.palette.secondary[100],
+					borderBottom: "none",
+					fontSize: "1rem",
+					borderRadius: 0,
+					borderTop: 1,
+					mb: 1
 				},
 				"& .MuiDataGrid-footerContainer": {
-					backgroundColor: theme.palette.background.alt,
-					color: theme.palette.secondary[200],
-					borderBottom: "none"
+					// backgroundColor: theme.palette.background.alt,
+					// color: theme.palette.secondary[200],
+					borderBottom: "none",
+					backgroundColor: alpha(theme.palette.secondary[600], 0.4),
+					color: theme.palette.secondary[100]
 				},
 				"& .MuiDataGrid-toolbarContainer .MuiButton-text": {
 					color: `${theme.palette.secondary[100]} !important`
+				},
+				"& .MuiDataGrid-row": {
+					backgroundColor: alpha(theme.palette.secondary[100], 0.2),
+					"&:hover": {
+						backgroundColor: alpha(theme.palette.secondary[600], 0.2)
+					}
 				}
 			}}
 		>
@@ -61,13 +85,18 @@ const ProductsDataGrid = ({
 				loading={isLoading}
 				rows={filteredRows || []}
 				columns={columns}
-				checkboxSelection={true}
+				onRowClick={handleRowClick}
+				checkboxSelection={checkboxSelection || false}
 				rowCount={(filteredRows && filteredRows.length) || 0}
 				pagination
 				rowsPerPageOptions={[20, 50, 100]}
 				components={{ Toolbar: DataGridCustomToolbar }}
 				componentsProps={{
-					toolbar: { search, setSearch }
+					toolbar: {
+						search,
+						setSearch,
+						disableSearch: !searchInput
+					}
 				}}
 				onSelectionModelChange={ids => {
 					handleSelected && handleSelected(ids);
@@ -77,4 +106,4 @@ const ProductsDataGrid = ({
 	);
 };
 
-export default ProductsDataGrid;
+export default MyDataGrid;

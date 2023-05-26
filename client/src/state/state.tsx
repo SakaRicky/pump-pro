@@ -1,5 +1,5 @@
 import React, { createContext, useReducer, useContext } from "react";
-import { Alert, LogedUser } from "types";
+import { Alert, CartItem, LogedUser } from "types";
 import { Action, reducer } from "state/reducer";
 import { PaletteMode } from "@mui/material";
 
@@ -8,12 +8,14 @@ export type State = {
 	alert: Alert | null;
 	mode: PaletteMode;
 	language: "en" | "fr";
+	cartItems: CartItem[] | [];
 };
 
 const initialState: State = {
 	logedUser: null,
 	alert: null,
 	mode: "dark",
+	cartItems: [],
 	language: navigator.language === "fr" ? "fr" : "en"
 };
 

@@ -14,7 +14,7 @@ type Props = {
 	handleChange?: (e: any) => void;
 };
 
-const SelectPickerInput = ({
+const AutocompleteSelect = ({
 	label,
 	isLoading,
 	name,
@@ -69,4 +69,4 @@ const SelectPickerInput = ({
 	);
 };
 
-export default SelectPickerInput;
+export default AutocompleteSelect;

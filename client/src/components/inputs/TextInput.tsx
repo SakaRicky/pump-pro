@@ -1,8 +1,7 @@
-import { TextField, useTheme } from "@mui/material";
+import React, { ChangeEvent } from "react";
+import { FormControl, TextField } from "@mui/material";
 import { Box, Typography } from "@mui/material";
-import { useField } from "formik";
-import React from "react";
-import { UseFormRegister } from "react-hook-form";
+import { useField, useFormikContext } from "formik";
 import { FormattedMessage } from "react-intl";
 
 type Props = {
@@ -10,6 +9,8 @@ type Props = {
 	type: React.HTMLInputTypeAttribute;
 	name: string;
 	multiline?: boolean;
+	size?: "small" | "medium" | undefined;
+	variant?: "filled" | "outlined";
 };
 
 interface configTextField {
@@ -19,21 +20,32 @@ interface configTextField {
 	type: React.HTMLInputTypeAttribute;
 	error?: boolean;
 	helperText?: string;
+	label: string;
 	fullWidth: boolean;
 	variant: "filled" | "outlined";
+	onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 }
 
-const TextInput = ({ label, name, type, multiline }: Props) => {
+const TextInput = ({ label, name, type, multiline, size, variant }: Props) => {
 	const [field, meta] = useField(name);
+	const { setFieldValue } = useFormikContext();
+
+	const handleChange = (
+		event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+	) => {
+		setFieldValue(name, event.target.value);
+	};
 
 	const configTextField: configTextField = {
 		...field,
 		type: type,
 		multiline: multiline,
 		placeholder: `Enter ${name}`,
-		size: "small",
+		size: size || "small",
 		fullWidth: true,
-		variant: "filled"
+		label: label,
+		variant: variant || "filled",
+		onChange: handleChange
 	};
 
 	if (meta && meta.touched && meta.error) {
@@ -42,12 +54,16 @@ const TextInput = ({ label, name, type, multiline }: Props) => {
 	}
 	return (
 		<Box>
-			{label && (
-				<Typography>
-					<FormattedMessage id={`form.worker.${name}`} defaultMessage={label} />
-				</Typography>
-			)}
-			<TextField {...configTextField} />
+			<FormControl fullWidth>
+				<TextField
+					{...configTextField}
+					InputProps={{
+						inputProps: {
+							min: 0
+						}
+					}}
+				/>
+			</FormControl>
 		</Box>
 	);
 };

@@ -1,20 +1,22 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { Product } from "types";
-import { getProduct, getProducts, saveProduct } from "services/products";
+import { getProduct, getProducts } from "services/products";
 
-export const UseProducts = () => {
+export const useProducts = (categoryID?: string) => {
 	const query = useQuery<Product[], Error>({
-		queryKey: ["products"],
-		queryFn: getProducts
+		queryKey: ["products", categoryID],
+		queryFn: () => getProducts(categoryID),
+		enabled: categoryID !== ""
 	});
 
 	return query;
 };
 
-export const UseProduct = (postId: string) => {
+export const useProduct = (productID: string) => {
 	const query = useQuery<Product, Error>({
 		queryKey: ["product"],
-		queryFn: () => getProduct(postId)
+		queryFn: () => getProduct(productID),
+		enabled: productID !== ""
 	});
 
 	return query;

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Box, Typography, useTheme } from "@mui/material";
 import { useField, useFormikContext } from "formik";
 import { FormattedMessage } from "react-intl";
-import { ProductCategory } from "types";
+import { ProductCategory, Tank } from "types";
 import CreatableSelect from "react-select/creatable";
 import { StylesConfig } from "react-select";
 import { saveProductCategory } from "services/productCategory";
@@ -12,7 +12,7 @@ type Props = {
 	label?: string;
 	name: string;
 	isLoading?: boolean;
-	options: ProductCategory[] | undefined;
+	options: ProductCategory[] | Tank[] | undefined;
 	handleChange?: (e: any) => void;
 	refetch: any;
 };
@@ -55,12 +55,12 @@ const CreatableSelectInput = ({
 		refetch();
 	};
 
-	const colourStyles: StylesConfig = {
+	const styles: StylesConfig = {
 		control: styles => ({ ...styles, backgroundColor: "inherit" }),
 		option: styles => {
 			return {
 				...styles,
-				backgroundColor: "inherit",
+				backgroundColor: theme.palette.background.main,
 				color: "inherit",
 
 				":active": {
@@ -83,27 +83,24 @@ const CreatableSelectInput = ({
 
 	const optionsForSelect: SelectItems[] | undefined = options?.map(option => {
 		return {
-			value: option.id,
+			value: option.id.toString(),
 			label: option.name
 		};
 	});
 
 	return (
 		<Box>
-			{label && (
-				<Typography>
-					<FormattedMessage id={`form.worker.${name}`} defaultMessage={label} />
-				</Typography>
-			)}
 			<CreatableSelect
-				value={optionsForSelect?.find(option => option.value === field.value)}
+				value={optionsForSelect?.find(
+					option => option.value === field.value.toString()
+				)}
 				isClearable
 				isLoading={isLoading || isLocalIsLoading}
 				isSearchable
 				onChange={handleReactSelectChange}
 				onCreateOption={handleCreate}
 				options={optionsForSelect}
-				styles={colourStyles}
+				styles={styles}
 			/>
 			{meta && meta.touched && meta.error ? (
 				<Typography color={red[500]} fontSize="0.7rem" mt="0.5rem">

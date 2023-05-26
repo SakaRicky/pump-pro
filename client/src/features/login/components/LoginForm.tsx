@@ -21,6 +21,7 @@ import SendIcon from "@mui/icons-material/Send";
 import { useNavigate } from "react-router-dom";
 import { AuthError } from "errors/authError";
 import { useNotify } from "hooks/useNotify";
+import storage from "utils/storage";
 
 const LoginForm = () => {
 	const theme = useTheme();
@@ -62,13 +63,10 @@ const LoginForm = () => {
 		setLoading(true);
 		try {
 			const loggedUser = await loginUser(data);
-			console.log(
-				"🚀 ~ file: LoginForm.tsx:65 ~ LoginForm ~ loggedUser",
-				loggedUser
-			);
+
 			notify("Login Success", "You are authenticated", "success");
 			if (!!loggedUser) {
-				localStorage.setItem("loggedUser", JSON.stringify(loggedUser));
+				storage.setToken(loggedUser.token);
 			}
 			setLoading(false);
 			if (loggedUser.role === "ADMIN") {

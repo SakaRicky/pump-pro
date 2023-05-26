@@ -23,11 +23,22 @@ export const saveProductCategory = async (
 // This method returns a user(User) for display
 export const getProductCategory = async (
 	id: string
-): Promise<ProductCategory> => {
-	const { data: receivedUser } = await api.get<ProductCategory>(
-		`/categories/products/${id}`
-	);
-	return receivedUser;
+): Promise<ProductCategory | undefined> => {
+	try {
+		const { data: receivedUser } = await api.get<ProductCategory>(
+			`/categories/products/${id}`
+		);
+		console.log(
+			"🚀 ~ file: productCategory.ts:29 ~ receivedUser",
+			receivedUser
+		);
+		return receivedUser;
+	} catch (error: any) {
+		console.log("🚀 ~ file: productCategory.ts:15 ~ error", error);
+		if (error.response.status) {
+			throw new Error(error.response.data.error);
+		}
+	}
 };
 
 // For now we get 1 and the same teacher the time to implement auth

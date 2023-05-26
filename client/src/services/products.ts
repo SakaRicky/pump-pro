@@ -2,7 +2,6 @@ import { Product } from "types";
 import api from "./api";
 import { AuthError } from "errors/authError";
 import { UserError } from "errors/userError";
-import { GridSortModel } from "@mui/x-data-grid";
 
 export const saveProduct = async (newUser: FormData) => {
 	try {
@@ -26,15 +25,21 @@ export const getProduct = async (id: string): Promise<Product> => {
 };
 
 // For now we get 1 and the same teacher the time to implement auth
-export const getProducts = async (): Promise<Product[]> => {
-	const { data } = await api.get<Product[]>(`/products`);
+export const getProducts = async (categoryID?: string): Promise<Product[]> => {
+	const { data } = await api.get<Product[]>(`/products`, {
+		params: { categoryID: categoryID }
+	});
 	return data;
 };
 
 // For now we get 1 and the same teacher the time to implement auth
-export const updateProduct = async (updateUser: FormData) => {
+export const updateProduct = async (updateProduct: FormData) => {
+	console.log(
+		"🚀 ~ file: products.ts:37 ~ updateProduct ~ updateProduct:",
+		updateProduct
+	);
 	try {
-		const res = await api.put("/products", updateUser, {
+		const res = await api.put("/products", updateProduct, {
 			headers: { "Content-Type": "multipart/form-data" }
 		});
 

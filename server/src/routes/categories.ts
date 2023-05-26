@@ -18,7 +18,7 @@ categoriesRoutes.get(
 );
 
 categoriesRoutes.get(
-	"products/:id",
+	"/products/:id",
 	checkIfAdmin,
 	asyncHandler(getOneProductCategory as RequestHandler)
 );

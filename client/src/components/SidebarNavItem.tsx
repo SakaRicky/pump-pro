@@ -1,7 +1,6 @@
 import React from "react";
 import { ChevronRightOutlined } from "@mui/icons-material";
 import {
-	Color,
 	ListItem,
 	ListItemButton,
 	ListItemIcon,
@@ -12,10 +11,16 @@ import { NavLink, useLocation } from "react-router-dom";
 
 interface SidebarNavItemProps {
 	text: string;
+	url: string;
 	icon: JSX.Element;
 	translate: JSX.Element;
 }
-const SidebarNavItem = ({ text, icon, translate }: SidebarNavItemProps) => {
+const SidebarNavItem = ({
+	text,
+	icon,
+	translate,
+	url
+}: SidebarNavItemProps) => {
 	const theme = useTheme();
 
 	const { pathname } = useLocation();
@@ -37,7 +42,7 @@ const SidebarNavItem = ({ text, icon, translate }: SidebarNavItemProps) => {
 	return (
 		<ListItem disablePadding>
 			<NavLink
-				to={`/${text.toLowerCase()}`}
+				to={`/${url}`}
 				style={({ isActive }) => (isActive ? activeNavLinkStyle : navLinkStyle)}
 			>
 				<ListItemButton>

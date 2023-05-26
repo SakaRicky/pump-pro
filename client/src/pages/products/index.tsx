@@ -2,29 +2,27 @@ import {
 	Avatar,
 	Box,
 	Button,
-	DialogContent,
 	Modal,
 	Typography,
 	useTheme
 } from "@mui/material";
-import { UseProducts } from "features/products/hooks/useProducts";
+import { useProducts } from "features/products/hooks/useProducts";
 import withAuth from "hoc/withAuth";
 import { useNotify } from "hooks/useNotify";
 import { useState } from "react";
 import { FormattedMessage } from "react-intl";
 import AddIcon from "@mui/icons-material/Add";
 import { deleteProduct } from "services/products";
-import { Product } from "types";
 import ProductForm from "features/products/components/ProductForm";
-import ProductsDataGrid from "features/products/components/ProductsDataGrid";
 import { GridColDef, GridSelectionModel } from "@mui/x-data-grid";
 import { LoadingButton } from "@mui/lab";
 import { useMutation } from "@tanstack/react-query";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import MyDataGrid from "components/MyDataGrid";
 
 const Products = () => {
-	const { data, isLoading, error, refetch } = UseProducts();
+	const { data, isLoading, error, refetch } = useProducts();
 
 	const theme = useTheme();
 
@@ -135,7 +133,20 @@ const Products = () => {
 			field: "quantity",
 			headerName: "Quantity in Stock",
 			headerAlign: "center",
-			align: "center"
+			align: "center",
+			renderCell: params => {
+				return (
+					<Box
+						component="span"
+						sx={{
+							color:
+								params.value <= params.row.low_stock_threshold ? `#ff0000` : ""
+						}}
+					>
+						{params.value}
+					</Box>
+				);
+			}
 		},
 		{
 			field: "purchase_price",
@@ -150,8 +161,8 @@ const Products = () => {
 			align: "center"
 		},
 		{
-			field: "reorder_point",
-			headerName: "Reorder Point",
+			field: "low_stock_threshold",
+			headerName: "Threshold",
 			headerAlign: "center",
 			align: "center"
 		}
@@ -159,7 +170,7 @@ const Products = () => {
 
 	return (
 		<Box>
-			<Box p="2rem">
+			<Box sx={{ p: { xs: "0.5rem", md: "1rem" } }}>
 				<Modal
 					open={addProductModal}
 					onClose={handleCloseAddProductModal}
@@ -238,12 +249,16 @@ const Products = () => {
 						)}
 					</Box>
 				</Box>
-				<ProductsDataGrid
-					handleSelected={handleSelectedProducts}
-					columns={columns}
-					isLoading={isLoading}
-					rows={data}
-				/>
+				{data && (
+					<MyDataGrid
+						handleSelected={handleSelectedProducts}
+						columns={columns}
+						isLoading={isLoading}
+						rows={data}
+						searchInput
+						checkboxSelection
+					/>
+				)}
 			</Box>
 		</Box>
 	);

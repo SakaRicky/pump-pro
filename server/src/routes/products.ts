@@ -13,7 +13,7 @@ import {
 
 const productsRoutes = express.Router();
 
-productsRoutes.get("/", asyncHandler(getProducts as RequestHandler));
+productsRoutes.get("/", asyncHandler(getProducts as unknown as RequestHandler));
 
 productsRoutes.get(
 	"/:id",

@@ -15,19 +15,22 @@ import { Delete, Edit } from "@mui/icons-material";
 import { blue } from "@mui/material/colors";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { FormattedMessage } from "react-intl";
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 
 interface WorkerCardProp {
 	worker: User;
 	handleEditWorker: (worker: User) => void;
 	handleDeleteWorker: (workerId: string) => void;
 	handleViewWorkerInfo: (worker: User) => void;
+	handleViewWorkerSalary: (worker: User) => void;
 }
 
 const WorkerCard = ({
 	worker,
 	handleEditWorker,
 	handleDeleteWorker,
-	handleViewWorkerInfo
+	handleViewWorkerInfo,
+	handleViewWorkerSalary
 }: WorkerCardProp) => {
 	const theme = useTheme();
 
@@ -84,6 +87,15 @@ const WorkerCard = ({
 				onClose={handleClose}
 				anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
 			>
+				<MenuItem onClick={() => handleViewWorkerSalary(worker)}>
+					<ListItemIcon>
+						<AttachMoneyIcon fontSize="medium" />
+					</ListItemIcon>
+					<FormattedMessage
+						id="worker.card.menu.salary"
+						defaultMessage="View Salary"
+					/>
+				</MenuItem>
 				<MenuItem onClick={handleEdit}>
 					<ListItemIcon>
 						<Edit fontSize="medium" />

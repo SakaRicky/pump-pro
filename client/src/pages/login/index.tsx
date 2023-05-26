@@ -45,16 +45,20 @@ const Login = () => {
 					alignItems: "center"
 				}}
 			>
-				<Typography
-					component="h1"
-					sx={{ mb: "2rem", fontSize: "3rem", textAlign: "center" }}
-				>
+				<Typography component="h1" sx={{ mb: "2rem", textAlign: "center" }}>
 					<Box sx={{ display: "flex", alignItems: "flex-end" }}>
-						<FormattedMessage
-							id="login.welcome"
-							defaultMessage="Welcome to PumpPro"
+						<Typography sx={{ fontSize: { xs: "2rem", md: "3rem" } }}>
+							<FormattedMessage
+								id="login.welcome"
+								defaultMessage="Welcome to PumpPro"
+							/>
+						</Typography>
+						<LocalGasStation
+							sx={{
+								width: { xs: "3rem", md: "5rem" },
+								height: { xs: "3rem", md: "5rem" }
+							}}
 						/>
-						<LocalGasStation sx={{ width: "5rem", height: "5rem" }} />
 					</Box>
 				</Typography>
 				<Box

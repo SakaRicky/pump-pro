@@ -70,6 +70,7 @@ const WorkerInfoPage = forwardRef(
 							<Box>
 								{worker?.names}
 								<Typography
+									component="span"
 									sx={{
 										color: theme.palette.primary[300],
 										mt: -1,

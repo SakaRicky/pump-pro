@@ -20,10 +20,11 @@ export const errorHandler = (
 	if (error instanceof PrismaClientKnownRequestError) {
 		console.log(
 			"error happened in Prisma.PrismaClientKnownRequestError with: ",
-			error.code
+			error
 		);
 
-		return response.status(409).send({ error: "username already taken" });
+		console.log(`error.meta?.target : ${error.meta?.target}`);
+		return response.status(500).send({ error: "Error happened in server" });
 	}
 
 	if (error instanceof jwt.TokenExpiredError) {

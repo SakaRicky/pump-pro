@@ -23,11 +23,14 @@ async function seed() {
 	await prisma.product.deleteMany();
 	await prisma.user.deleteMany();
 	await prisma.dailySale.deleteMany();
-	await prisma.petrolSale.deleteMany();
+	await prisma.fuel.deleteMany();
+	await prisma.tank.deleteMany();
 	await prisma.productCategory.deleteMany();
+	await prisma.purchase.deleteMany();
+	await prisma.messageNotification.deleteMany();
 
 	// CREATING USERS
-	await prisma.user.create({
+	const user1 = await prisma.user.create({
 		data: {
 			names: "John Doe",
 			username: "johndoe",
@@ -214,9 +217,11 @@ async function seed() {
 		data: [
 			{
 				user_id: user2.id,
-				expected_amount: expextedUser1Amount,
+				amount_sold: expextedUser1Amount,
 				amount_given: amountGivenUser1,
-				difference: diff
+				difference: diff,
+				date_of_sale_start: new Date("2023/04/21 07:00"),
+				date_of_sale_stop: new Date("2023/04/21 17:00")
 			}
 		]
 	});
@@ -239,17 +244,118 @@ async function seed() {
 		data: [
 			{
 				user_id: user4.id,
-				expected_amount: expextedAmountUser2,
+				amount_sold: expextedAmountUser2,
 				amount_given: amountGivenUser2,
-				difference: diff2
+				difference: diff2,
+				date_of_sale_start: new Date("2023/04/21 07:00"),
+				date_of_sale_stop: new Date("2023/04/21 17:00")
 			}
 		]
 	});
+
+	const tank1 = await prisma.tank.create({
+		data: {
+			name: "Tank A",
+			capacity: 40000
+		}
+	});
+
+	const tank2 = await prisma.tank.create({
+		data: {
+			name: "Tank B",
+			capacity: 15000
+		}
+	});
+
+	const tank3 = await prisma.tank.create({
+		data: {
+			name: "Tank C",
+			capacity: 15000
+		}
+	});
+
+	const tank4 = await prisma.tank.create({
+		data: {
+			name: "Tank D",
+			capacity: 0
+		}
+	});
+
+	await prisma.fuel.create({
+		data: {
+			name: "Fuel",
+			description: "Fuel for normal petrol engines",
+			purchase_price: 650,
+			selling_price: 700,
+			quantity_theory: 25600,
+			quantity_actual: 25600,
+			tank_id: tank1.id
+		}
+	});
+
+	await prisma.fuel.create({
+		data: {
+			name: "Gasoil",
+			description: "Fuel for Diesel engines",
+			purchase_price: 600,
+			selling_price: 650,
+			quantity_theory: 11400,
+			quantity_actual: 11400,
+			tank_id: tank2.id
+		}
+	});
+
+	await prisma.fuel.create({
+		data: {
+			name: "Petrol",
+			description: "Petrol to be burnt of traditional Lamps",
+			purchase_price: 200,
+			selling_price: 250,
+			quantity_theory: 11400,
+			quantity_actual: 11400,
+			tank_id: tank3.id
+		}
+	});
+
+	await prisma.fuel.create({
+		data: {
+			name: "Gaz Bottle",
+			description: "Domestic Gaz Bottle",
+			purchase_price: 6500,
+			selling_price: 7000,
+			quantity_theory: 150,
+			quantity_actual: 150,
+			tank_id: tank4.id
+		}
+	});
+
+	await prisma.messageNotification.create({
+		data: {
+			title: "For Jogn doe",
+			message: "Initial message for Jogn doe",
+			read: false,
+			users: { connect: [{ id: user1.id }] }
+		}
+	});
+
+	await prisma.messageNotification.create({
+		data: {
+			title: "For Neymar Junior",
+			message: "Initial message Neymar Junior",
+			read: false,
+			users: { connect: [{ id: user2.id }] }
+		}
+	});
+
+	await prisma.messageNotification.create({
+		data: {
+			title: "For many users",
+			message: "Initial message many users",
+			read: false,
+			users: { connect: [{ id: user1.id }, { id: user2.id }, { id: user4.id }] }
+		}
+	});
 }
-
-// const seed_test = () => {
-
-// }
 
 // void process.env.NODE_ENV === "test" ? seed_test() : seed();
 void seed();

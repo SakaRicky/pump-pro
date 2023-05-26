@@ -18,6 +18,7 @@ import { UseProductCategories } from "../hooks/useProductCategory";
 import CreatableSelectInput from "components/inputs/CreatableSelect";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import EditIcon from "@mui/icons-material/Edit";
+import { useMediaQuery } from "@mui/material";
 
 type ProductFormProps = {
 	product?: Product;
@@ -30,9 +31,10 @@ const ProductForm = forwardRef(
 
 		const queryClient = useQueryClient();
 
+		const isMobile = useMediaQuery("(max-width: 900px)");
+
 		const { data, isLoading, error, refetch } = UseProductCategories();
 
-		const [loading, setLoading] = useState(false);
 		const notify = useNotify();
 
 		if (error) {
@@ -40,6 +42,7 @@ const ProductForm = forwardRef(
 		}
 
 		const isEditMode = !!product;
+		// console.log("product in ProductForm: ", product);
 
 		const navigate = useNavigate();
 
@@ -52,17 +55,17 @@ const ProductForm = forwardRef(
 			quantity: isEditMode ? product.quantity : 0,
 			purchase_price: isEditMode ? product.purchase_price : 0,
 			selling_price: isEditMode ? product.selling_price : 0,
-			reorder_point: isEditMode ? product.reorder_point : 0
+			low_stock_threshold: isEditMode ? product.low_stock_threshold : 0
 		};
 
 		const createProductValidationSchema = yup.object({
 			name: yup.string().required("Names is required"),
 			category_id: yup.string().required("Categoryes is required"),
 			description: yup.string(),
-			quantity: yup.number().min(1, "You must give a quantity"),
-			purchase_price: yup.number().min(1, "You must give a purchase price"),
-			selling_price: yup.number().min(1, "You must give a selling price"),
-			reorder_point: yup.number().min(1, "You must give a reorder point")
+			quantity: yup.number().min(1, "Atleast 1"),
+			purchase_price: yup.number().min(1, "Atleast 1"),
+			selling_price: yup.number().min(1, "Atleast 1"),
+			low_stock_threshold: yup.number().min(1, "Atleast 1")
 		});
 
 		const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -79,7 +82,6 @@ const ProductForm = forwardRef(
 			onSuccess: (data, variables, context: any) => {
 				notify("Save Success", context.successMessage, "success");
 				handleCloseModal();
-				setLoading(false);
 				queryClient.invalidateQueries(["products"], { exact: true });
 			},
 			onMutate: variables => {
@@ -87,8 +89,19 @@ const ProductForm = forwardRef(
 			}
 		});
 
+		const updateProductMutation = useMutation({
+			mutationFn: updateProduct,
+			onSuccess: (data, variables, context: any) => {
+				notify("Update Success", context.successMessage, "success");
+				queryClient.invalidateQueries(["products"], { exact: true });
+				handleCloseModal();
+			},
+			onMutate: variables => {
+				return { successMessage: "Updated Product Successfully" };
+			}
+		});
+
 		const onNewProductSubmit = async (data: NewProduct) => {
-			setLoading(true);
 			const formData = new FormData();
 
 			for (const [key, value] of Object.entries(data)) {
@@ -105,10 +118,10 @@ const ProductForm = forwardRef(
 			try {
 				if (isEditMode) {
 					formData.append("id", product.id);
-					await updateProduct(formData);
-					notify("Edit Success", "Product edited successfully", "success");
-					handleCloseModal();
-					setLoading(false);
+					formData.append("created_at", product.created_at);
+					formData.append("updatedAt", product.updatedAt);
+					formData.append("image", product.image || "");
+					updateProductMutation.mutateAsync(formData);
 				} else {
 					await createProductMutation.mutateAsync(formData);
 				}
@@ -123,7 +136,6 @@ const ProductForm = forwardRef(
 					notify("Login Error", error.message, "error");
 					navigate("/login");
 				}
-				setLoading(false);
 			}
 		};
 
@@ -135,7 +147,7 @@ const ProductForm = forwardRef(
 					boxShadow:
 						"rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(4, 110, 174) 0px 0px 0px 3px",
 					backgroundColor: theme.palette.background.alt,
-					width: "60%",
+					width: isMobile ? "90%" : "60%",
 					height: "80%",
 					mt: "5rem",
 					overflowY: "auto"
@@ -161,12 +173,13 @@ const ProductForm = forwardRef(
 							spacing={{ xs: 0, sm: 2, md: 3 }}
 							rowSpacing={2}
 							columns={12}
+							columnSpacing={2}
 						>
 							<Grid item xs={12} sm={6}>
 								<TextInput type="text" label="Name" name="name" />
 							</Grid>
 
-							<Grid item xs={12} sm={6}>
+							<Grid item xs={12} sm={6} zIndex={100}>
 								<CreatableSelectInput
 									label="Category"
 									name="category_id"
@@ -221,6 +234,65 @@ const ProductForm = forwardRef(
 								/>
 								<input type="file" hidden onChange={handleFileInputChange} />
 							</Button>
+							{!isMobile && (
+								<Box
+									sx={{
+										display: "flex",
+										justifyContent: "center",
+										gap: "1rem"
+									}}
+								>
+									{picture && (
+										<Box
+											sx={{
+												width: "10rem",
+												height: "10rem"
+											}}
+										>
+											<PreviewImage
+												imageFile={picture}
+												handleDeleteImage={() => setPicture(null)}
+											/>
+										</Box>
+									)}
+									{isEditMode && Boolean(product.image) && (
+										<img
+											style={{
+												borderRadius: "50%",
+												marginTop: "1rem",
+												padding: "2px",
+												border: `1px solid ${theme.palette.grey[600]}`,
+												objectFit: "cover",
+												width: "10rem",
+												height: "10rem"
+											}}
+											src={product.image}
+											alt="profile"
+										/>
+									)}
+								</Box>
+							)}
+							<LoadingButton
+								type="submit"
+								loading={
+									createProductMutation.isLoading ||
+									updateProductMutation.isLoading
+								}
+								endIcon={isEditMode ? <EditIcon /> : <AddIcon />}
+								loadingPosition="end"
+								sx={{
+									backgroundColor: theme.palette.secondary.main,
+									color: theme.palette.grey[50],
+
+									"&:hover": {
+										backgroundColor: theme.palette.secondary.dark
+									}
+								}}
+							>
+								{isEditMode ? "Save" : "Add Product"}
+							</LoadingButton>
+						</FlexBetween>
+						{isMobile && (
 							<Box
 								sx={{ display: "flex", justifyContent: "center", gap: "1rem" }}
 							>
@@ -253,23 +325,7 @@ const ProductForm = forwardRef(
 									/>
 								)}
 							</Box>
-							<LoadingButton
-								type="submit"
-								loading={loading}
-								endIcon={isEditMode ? <EditIcon /> : <AddIcon />}
-								loadingPosition="end"
-								sx={{
-									backgroundColor: theme.palette.secondary.main,
-									color: theme.palette.grey[50],
-
-									"&:hover": {
-										backgroundColor: theme.palette.secondary.dark
-									}
-								}}
-							>
-								{isEditMode ? "Save" : "Add Product"}
-							</LoadingButton>
-						</FlexBetween>
+						)}
 					</Form>
 				</Formik>
 			</Box>

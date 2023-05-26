@@ -1,42 +1,54 @@
 import { Box, Button, Grid, Modal, useTheme } from "@mui/material";
 import { useNotify } from "hooks/useNotify";
-import React, { useState, useEffect, useCallback } from "react";
-import { deleteUser, getUsers } from "services/users";
+import React, { useState } from "react";
+import { deleteUser } from "services/users";
 import { User } from "types";
 import WorkerCard from "features/workers/components/WorkerCard";
 import AddIcon from "@mui/icons-material/Add";
 import withAuth from "hoc/withAuth";
 import WorkerForm from "features/workers/components/WorkerForm";
 import WorkerInfoPage from "features/workers/components/WorkerInfoPage";
+import { useUsers } from "features/workers/hooks/useUser";
+import WorkerSalary from "features/workers/components/WorkerSalary";
 
 const Workers = () => {
 	const theme = useTheme();
 
-	const [workers, setWorkers] = useState<User[]>([]);
-	const [workerToEdit, setWorkerToEdit] = useState<User>();
-	const [workerToView, setWorkerToView] = useState<User>();
+	const {
+		data: users,
+		isLoading: isUsersLoading,
+		isError: isUsersError,
+		refetch: refetchUsers
+	} = useUsers();
+	// const [workerToEdit, setWorkerToEdit] = useState<User>();
+	// const [workerToView, setWorkerToView] = useState<User>();
+
+	const [selectedUser, setSelectedUser] = useState<User>();
 
 	const [modalOpen, setModalOpen] = React.useState(false);
+	const [infoModalOpen, setInfoModalOpen] = React.useState(false);
+	const [salaryModal, setSalaryModal] = React.useState(false);
+
 	const handleCloseModal = () => {
 		setModalOpen(false);
-		setWorkerToEdit(undefined);
-	};
-
-	const [infoModalOpen, setInfoModalOpen] = React.useState(false);
-	const handleInfoCloseModal = () => {
-		console.log("close modal");
-
+		setSelectedUser(undefined);
 		setInfoModalOpen(false);
-		setWorkerToView(undefined);
+		setSalaryModal(false);
+		refetchUsers();
 	};
 
 	const handleEditWorker = (worker: User) => {
-		setWorkerToEdit(worker);
+		setSelectedUser(worker);
 		setModalOpen(true);
 	};
 
+	const handleViewWorkerSalary = (worker: User) => {
+		setSalaryModal(true);
+		setSelectedUser(worker);
+	};
+
 	const handleViewWorkerInfo = (worker: User) => {
-		setWorkerToView(worker);
+		setSelectedUser(worker);
 		setInfoModalOpen(true);
 	};
 
@@ -44,30 +56,13 @@ const Workers = () => {
 		try {
 			await deleteUser(workerId);
 			notify("Delete Success", "User deleted successfully", "success");
-			fetchUsers();
+			refetchUsers();
 		} catch (error: any) {
 			notify("Login Error", error.message, "error");
 		}
 	};
 
 	const notify = useNotify();
-
-	const fetchUsers = useCallback(async () => {
-		try {
-			const users = await getUsers();
-			if (users) {
-				setWorkers(users);
-			}
-		} catch (error) {
-			if (error instanceof Error) {
-				notify("Error", error.message, "error");
-			}
-		}
-	}, [notify]);
-
-	useEffect(() => {
-		fetchUsers();
-	}, [fetchUsers, modalOpen]);
 
 	return (
 		<Box p="2rem">
@@ -83,14 +78,14 @@ const Workers = () => {
 			>
 				<>
 					<WorkerForm
-						worker={workerToEdit}
+						worker={selectedUser}
 						handleCloseModal={handleCloseModal}
 					/>
 				</>
 			</Modal>
 			<Modal
 				open={infoModalOpen}
-				onClose={handleInfoCloseModal}
+				onClose={handleCloseModal}
 				aria-labelledby="Worker Info Page"
 				aria-describedby="Page to view worker Info"
 				sx={{
@@ -99,7 +94,21 @@ const Workers = () => {
 				}}
 			>
 				<>
-					<WorkerInfoPage worker={workerToView} />
+					<WorkerInfoPage worker={selectedUser} />
+				</>
+			</Modal>
+			<Modal
+				open={salaryModal}
+				onClose={handleCloseModal}
+				aria-labelledby="Worker Form"
+				aria-describedby="Form used to add or edit worker"
+				sx={{
+					display: "flex",
+					justifyContent: "center"
+				}}
+			>
+				<>
+					<WorkerSalary worker={selectedUser} />
 				</>
 			</Modal>
 
@@ -126,13 +135,14 @@ const Workers = () => {
 					rowSpacing={4}
 					columns={12}
 				>
-					{workers.map(worker => (
-						<Grid item xs={12} sm={6} md={4} key={worker.id}>
+					{users?.map(user => (
+						<Grid item xs={12} sm={6} md={4} key={user.id}>
 							<WorkerCard
-								worker={worker}
+								worker={user}
 								handleEditWorker={handleEditWorker}
 								handleDeleteWorker={handleDeleteWorker}
 								handleViewWorkerInfo={handleViewWorkerInfo}
+								handleViewWorkerSalary={handleViewWorkerSalary}
 							/>
 						</Grid>
 					))}

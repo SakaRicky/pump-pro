@@ -13,6 +13,10 @@ import Workers from "pages/workers";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import Shop from "pages/shop";
+import Sales from "pages/sales";
+import SalesByForm from "pages/SaleForm";
+import Fuels from "pages/fuel";
+import Perfomances from "pages/perfomances";
 
 function App() {
 	const [state] = useStateValue();
@@ -34,6 +38,10 @@ function App() {
 									<Route path="/products" element={<Products />} />
 									<Route path="/workers" element={<Workers />} />
 									<Route path="/shop" element={<Shop />} />
+									<Route path="/sales" element={<Sales />} />
+									<Route path="/salesform" element={<SalesByForm />} />
+									<Route path="/fuels" element={<Fuels />} />
+									<Route path="/perfomances" element={<Perfomances />} />
 								</Route>
 								<Route path="/login" element={<Login />} />
 							</Routes>

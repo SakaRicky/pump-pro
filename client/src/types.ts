@@ -12,9 +12,10 @@ export type User = {
 	email?: string;
 	profile_picture?: string;
 	role: Role;
+	messages: MessageNotification[];
 };
 
-export type NewUser = Omit<User, "id" | "password_hash"> & {
+export type NewUser = Omit<User, "id" | "password_hash" | "messages"> & {
 	password?: string;
 	passwordConfirmation?: string;
 };
@@ -25,9 +26,10 @@ export enum Gender {
 }
 
 export interface LogedUser {
+	id: string;
 	role: Role;
 	username: string;
-	token?: string;
+	token: string;
 	profilePicture: string;
 }
 
@@ -58,10 +60,15 @@ export type Product = {
 	quantity: number;
 	purchase_price: number;
 	selling_price: number;
-	reorder_point: number;
+	low_stock_threshold: number;
+	created_at: string;
+	updatedAt: string;
 };
 
-export type NewProduct = Omit<Product, "id" | "category"> & {
+export type NewProduct = Omit<
+	Product,
+	"id" | "category" | "created_at" | "updatedAt"
+> & {
 	category_id: string;
 };
 
@@ -72,3 +79,109 @@ export type ProductCategory = {
 };
 
 export type NewProductCategory = Omit<ProductCategory, "id">;
+
+export type CartItem = {
+	id: string;
+	name: string;
+	image: string | undefined;
+	quantity: number;
+	quantity_in_stock: number;
+	unit_price: number;
+};
+
+export type Sale = {
+	id: string;
+	total_amount: number;
+	user: User;
+	saleDetails: SaleDetails[];
+	created_at: Date;
+};
+
+export type SaleDetails = {
+	id: string;
+	product: Product;
+	unit_price: number;
+	quantity: number;
+	total_amount: number;
+};
+
+export type SalesSummary = {
+	product_id: string;
+	name: string;
+	image: string;
+	amount: number;
+	quantity_in_stock: number;
+	selling_price: number;
+	number_sold: number;
+};
+
+export type DailySale = {
+	id: string;
+	amount_sold: number;
+	amount_given: number;
+	difference: number;
+	date_of_sale_start: Date;
+	date_of_sale_stop: Date;
+	start_count_gasoil_1?: number;
+	stop_count_gasoil_1?: number;
+	start_count_fuel_1?: number;
+	stop_count_fuel_1?: number;
+	start_count_gasoil_2?: number;
+	stop_count_gasoil_2?: number;
+	start_count_fuel_2?: number;
+	stop_count_fuel_2?: number;
+	start_count_gasoil_3?: number;
+	stop_count_gasoil_3?: number;
+	start_count_fuel_3?: number;
+	stop_count_fuel_3?: number;
+	start_count_gaz?: number;
+	stop_count_gaz?: number;
+	created_at: Date;
+};
+
+export type NewDailySale = Omit<DailySale, "id" | "created_at"> & {
+	user_id: string;
+};
+
+export enum FuelCategories {
+	FUEL = "FUEL",
+	GASOIL = "GASOIL",
+	PETROL = "PETROL",
+	GAZ = "GAZ"
+}
+
+export type Tank = {
+	id: number;
+	capacity: number;
+	name: string;
+	created_at: Date;
+	updatedAt: Date;
+};
+
+export type NewTank = Omit<Tank, "id" | "created_at" | "updatedAt">;
+
+export type Fuel = {
+	id: number;
+	purchase_price: number;
+	selling_price: number;
+	quantity_theory: number;
+	quantity_actual: number;
+	name: string;
+	description: string;
+	tank: Tank;
+	created_at: Date;
+	updatedAt: Date;
+};
+
+export type NewFuel = Omit<Fuel, "id" | "created_at" | "updatedAt" | "tank"> & {
+	tank_id: number;
+};
+
+export type MessageNotification = {
+	id: number;
+	title: string;
+	message: string;
+	read: boolean;
+	created_at: Date;
+	updatedAt: Date;
+};

@@ -12,6 +12,12 @@ import path from "path";
 import { checkTokenExistence, tokenExtractor } from "../middlewares/jwt";
 import productsRoutes from "./routes/products";
 import categoriesRoutes from "./routes/categories";
+import salesRoutes from "./routes/sales";
+import salesSummaryRoutes from "./routes/saleSummary";
+import dailySalesRoutes from "./routes/dailySales";
+import fuelsRoutes from "./routes/fuel";
+import tankRoutes from "./routes/tank";
+import messageNotificationsRoutes from "./routes/notifications";
 
 // Create a new express app
 const app = express();
@@ -21,7 +27,8 @@ const corsOptions = {
 		"http://localhost:5173",
 		"http://127.0.0.1:5173",
 		"http://localhost:3000",
-		"http://192.168.100.10:3000"
+		"http://192.168.100.10:3000",
+		"http://192.168.100.10:5173"
 	],
 	credentials: true,
 	optionSuccessStatus: 200
@@ -51,6 +58,12 @@ app.use(checkTokenExistence);
 app.use("/users", usersRoute);
 app.use("/products", productsRoutes);
 app.use("/categories", categoriesRoutes);
+app.use("/sales", salesRoutes);
+app.use("/salessummary", salesSummaryRoutes);
+app.use("/daily-sales", dailySalesRoutes);
+app.use("/fuel", fuelsRoutes);
+app.use("/tank", tankRoutes);
+app.use("/messages", messageNotificationsRoutes);
 
 app.use(unknownEndpoint);
 app.use(errorHandler);

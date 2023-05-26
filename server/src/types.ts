@@ -1,4 +1,14 @@
-import { Gender, Role } from "@prisma/client";
+import {
+	Gender,
+	Prisma,
+	Role,
+	Product,
+	SaleDetail,
+	DailySale,
+	Tank,
+	Fuel,
+	Message
+} from "@prisma/client";
 
 export type User = {
 	id: string;
@@ -26,19 +36,12 @@ export type LogginUser = {
 	password: string;
 };
 
-export type Product = {
-	id: string;
-	name: string;
-	category_id: string;
-	description?: string;
-	image?: string;
-	quantity: number;
-	purchase_price: number;
-	selling_price: number;
-	reorder_point: number;
+export type ProductType = Omit<Product, "description" | "image"> & {
+	description?: string | null;
+	image?: string | null;
 };
 
-export type NewProduct = Omit<Product, "id" | "category">;
+export type NewProduct = Omit<ProductType, "id" | "created_at" | "updatedAt">;
 
 export type ProductCategory = {
 	id: string;
@@ -47,3 +50,52 @@ export type ProductCategory = {
 };
 
 export type NewProductCategory = Omit<ProductCategory, "id">;
+
+export type SaleItem = {
+	productID: string;
+	quantity: number;
+};
+
+export type Sale = {
+	id: string;
+	total_amount: number;
+	user_id: string;
+	saleDetails: Prisma.SaleDetailArgs[];
+};
+
+// 1: Define a type that includes the relation to `Post`
+const saleDetailsWithWithPosts = Prisma.validator<Prisma.SaleDetailArgs>()({
+	include: { product: true }
+});
+
+// 3: This type will include a user and all their posts
+export type SaleDetailWithProduct = Prisma.SaleDetailGetPayload<
+	typeof saleDetailsWithWithPosts
+>;
+
+export type SaleDetailType = SaleDetail;
+
+export type NewSaleDetails = Omit<
+	SaleDetailType,
+	"id" | "sale_id" | "created_at" | "updatedAt"
+>;
+
+export type DailySaleType = DailySale;
+
+export type NewDailySale = Omit<
+	DailySaleType,
+	"id" | "difference" | "created_at" | "updatedAt"
+>;
+
+export enum FuelType {
+	FUEL = "FUEL",
+	GASOIL = "GASOIL",
+	PETROL = "PETROL",
+	GAS_BOTTLE = "GAS_BOTTLE"
+}
+
+export type NewTank = Omit<Tank, "id" | "created_at" | "updatedAt">;
+
+export type NewFuel = Omit<Fuel, "id" | "created_at" | "updatedAt">;
+
+export type NewMessage = Omit<Message, "id" | "created_at" | "updatedAt">;

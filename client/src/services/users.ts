@@ -1,4 +1,4 @@
-import { User } from "types";
+import { Role, User } from "types";
 import api from "./api";
 import { AuthError } from "errors/authError";
 import { UserError } from "errors/userError";
@@ -28,8 +28,10 @@ export const getUser = async (id: string): Promise<User> => {
 };
 
 // For now we get 1 and the same teacher the time to implement auth
-export const getUsers = async (): Promise<User[] | undefined> => {
-	const { data: receivedUser } = await api.get<User[]>(`/users`);
+export const getUsers = async (role?: Role): Promise<User[]> => {
+	const { data: receivedUser } = await api.get<User[]>(`/users`, {
+		params: { role: role }
+	});
 	return receivedUser;
 };
 

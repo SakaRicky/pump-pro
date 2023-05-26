@@ -1,5 +1,5 @@
-import { PrismaClient } from "@prisma/client";
-import { NextFunction, Request, Response } from "express";
+import { PrismaClient, Role } from "@prisma/client";
+import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import { RequestWithToken } from "../utils/middleware";
 import { validateEditedUser, validateNewUser } from "../utils/validateData";
@@ -7,66 +7,67 @@ import { NewUser } from "../types";
 
 const prisma = new PrismaClient();
 
+interface RequestQuery {
+	role: Role | undefined;
+}
+
 export const getUsers = async (
-	_req: Request,
-	res: Response,
-	next: NextFunction
+	req: Request<unknown, unknown, unknown, RequestQuery>,
+	res: Response
 ) => {
-	try {
-		const allUsers = await prisma.user.findMany({
-			select: {
-				id: true,
-				names: true,
-				username: true,
-				date_of_birth: true,
-				email: true,
-				phone: true,
-				gender: true,
-				godfather_phone: true,
-				salary: true,
-				profile_picture: true,
-				role: true,
-				CNI_number: true,
-				localisation: true,
-				created_at: true
+	const { role } = req.query as RequestQuery;
+	let where;
+	if (role) {
+		where = {
+			role: {
+				in: [role, Role.ADMIN]
 			}
-		});
-		return res.send(allUsers);
-	} catch (error) {
-		next(error);
+		};
 	}
+	const allUsers = await prisma.user.findMany({
+		select: {
+			id: true,
+			names: true,
+			username: true,
+			date_of_birth: true,
+			email: true,
+			phone: true,
+			gender: true,
+			godfather_phone: true,
+			salary: true,
+			profile_picture: true,
+			role: true,
+			CNI_number: true,
+			localisation: true,
+			created_at: true
+		},
+		where: where
+	});
+	return res.send(allUsers);
 };
 
-export const getOneUser = async (
-	req: Request,
-	res: Response,
-	next: NextFunction
-) => {
-	try {
-		const { id } = req.params;
+export const getOneUser = async (req: Request, res: Response) => {
+	const { id } = req.params;
 
-		const foundUser = await prisma.user.findFirst({
-			where: {
-				id: id
-			},
-			select: {
-				id: true,
-				names: true,
-				username: true,
-				email: true,
-				phone: true,
-				gender: true,
-				godfather_phone: true,
-				salary: true,
-				profile_picture: true,
-				role: true,
-				created_at: true
-			}
-		});
-		return res.send(foundUser);
-	} catch (error) {
-		next(error);
-	}
+	const foundUser = await prisma.user.findFirst({
+		where: {
+			id: id
+		},
+		select: {
+			id: true,
+			names: true,
+			username: true,
+			email: true,
+			phone: true,
+			gender: true,
+			godfather_phone: true,
+			salary: true,
+			profile_picture: true,
+			role: true,
+			created_at: true
+		}
+	});
+	return res.send(foundUser);
 };
 
 export const saveUser = async (req: RequestWithToken, res: Response) => {

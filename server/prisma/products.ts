@@ -8,7 +8,7 @@ export const getProducts = (categories: ProductCategory[]) => {
 			quantity: 75,
 			purchase_price: 150,
 			selling_price: 175,
-			reorder_point: 25,
+			low_stock_threshold: 25,
 			category_id: categories[1].id,
 			image: "http://localhost:5001/images/products/mambo.webp"
 		},
@@ -18,7 +18,7 @@ export const getProducts = (categories: ProductCategory[]) => {
 			quantity: 110,
 			purchase_price: 600,
 			selling_price: 650,
-			reorder_point: 24,
+			low_stock_threshold: 24,
 			category_id: categories[2].id,
 			image: "http://localhost:5001/images/products/guiness.jpeg"
 		},
@@ -28,7 +28,7 @@ export const getProducts = (categories: ProductCategory[]) => {
 			quantity: 130,
 			purchase_price: 900,
 			selling_price: 1000,
-			reorder_point: 35,
+			low_stock_threshold: 35,
 			category_id: categories[3].id
 		},
 		{
@@ -37,7 +37,7 @@ export const getProducts = (categories: ProductCategory[]) => {
 			quantity: 40,
 			purchase_price: 500,
 			selling_price: 600,
-			reorder_point: 8,
+			low_stock_threshold: 8,
 			category_id: categories[0].id
 		},
 		{
@@ -46,7 +46,7 @@ export const getProducts = (categories: ProductCategory[]) => {
 			quantity: 20,
 			purchase_price: 400,
 			selling_price: 500,
-			reorder_point: 5,
+			low_stock_threshold: 5,
 			category_id: categories[6].id
 		},
 		{
@@ -55,7 +55,7 @@ export const getProducts = (categories: ProductCategory[]) => {
 			quantity: 40,
 			purchase_price: 200,
 			selling_price: 300,
-			reorder_point: 10,
+			low_stock_threshold: 10,
 			category_id: categories[5].id,
 			image: "http://localhost:5001/images/products/sita.webp"
 		},
@@ -65,7 +65,7 @@ export const getProducts = (categories: ProductCategory[]) => {
 			quantity: 60,
 			purchase_price: 385,
 			selling_price: 400,
-			reorder_point: 15,
+			low_stock_threshold: 15,
 			category_id: categories[4].id
 		},
 		{
@@ -74,7 +74,7 @@ export const getProducts = (categories: ProductCategory[]) => {
 			quantity: 40,
 			purchase_price: 250,
 			selling_price: 400,
-			reorder_point: 10,
+			low_stock_threshold: 10,
 			category_id: categories[3].id
 		},
 		{
@@ -83,7 +83,7 @@ export const getProducts = (categories: ProductCategory[]) => {
 			quantity: 40,
 			purchase_price: 450,
 			selling_price: 500,
-			reorder_point: 8,
+			low_stock_threshold: 8,
 			category_id: categories[1].id
 		},
 		{
@@ -92,7 +92,7 @@ export const getProducts = (categories: ProductCategory[]) => {
 			quantity: 10,
 			purchase_price: 2166,
 			selling_price: 2500,
-			reorder_point: 2,
+			low_stock_threshold: 2,
 			category_id: categories[2].id,
 			image: "http://localhost:5001/images/products/jolimet.jpeg"
 		},
@@ -102,7 +102,7 @@ export const getProducts = (categories: ProductCategory[]) => {
 			quantity: 75,
 			purchase_price: 150,
 			selling_price: 175,
-			reorder_point: 25,
+			low_stock_threshold: 25,
 			category_id: categories[1].id,
 			image: "http://localhost:5001/images/products/mambo.webp"
 		},
@@ -112,7 +112,7 @@ export const getProducts = (categories: ProductCategory[]) => {
 			quantity: 110,
 			purchase_price: 600,
 			selling_price: 650,
-			reorder_point: 24,
+			low_stock_threshold: 24,
 			category_id: categories[2].id,
 			image: "http://localhost:5001/images/products/guiness.jpeg"
 		},
@@ -122,7 +122,7 @@ export const getProducts = (categories: ProductCategory[]) => {
 			quantity: 130,
 			purchase_price: 900,
 			selling_price: 1000,
-			reorder_point: 35,
+			low_stock_threshold: 35,
 			category_id: categories[3].id
 		},
 		{
@@ -131,7 +131,7 @@ export const getProducts = (categories: ProductCategory[]) => {
 			quantity: 40,
 			purchase_price: 500,
 			selling_price: 600,
-			reorder_point: 8,
+			low_stock_threshold: 8,
 			category_id: categories[0].id
 		},
 		{
@@ -140,7 +140,7 @@ export const getProducts = (categories: ProductCategory[]) => {
 			quantity: 20,
 			purchase_price: 400,
 			selling_price: 500,
-			reorder_point: 5,
+			low_stock_threshold: 5,
 			category_id: categories[6].id
 		},
 		{
@@ -149,7 +149,7 @@ export const getProducts = (categories: ProductCategory[]) => {
 			quantity: 40,
 			purchase_price: 200,
 			selling_price: 300,
-			reorder_point: 10,
+			low_stock_threshold: 10,
 			category_id: categories[5].id
 		},
 		{
@@ -158,7 +158,7 @@ export const getProducts = (categories: ProductCategory[]) => {
 			quantity: 60,
 			purchase_price: 385,
 			selling_price: 400,
-			reorder_point: 15,
+			low_stock_threshold: 15,
 			category_id: categories[4].id
 		},
 		{
@@ -167,7 +167,7 @@ export const getProducts = (categories: ProductCategory[]) => {
 			quantity: 40,
 			purchase_price: 250,
 			selling_price: 400,
-			reorder_point: 10,
+			low_stock_threshold: 10,
 			category_id: categories[3].id
 		},
 		{
@@ -176,7 +176,7 @@ export const getProducts = (categories: ProductCategory[]) => {
 			quantity: 40,
 			purchase_price: 450,
 			selling_price: 500,
-			reorder_point: 8,
+			low_stock_threshold: 8,
 			category_id: categories[1].id
 		},
 		{
@@ -185,7 +185,7 @@ export const getProducts = (categories: ProductCategory[]) => {
 			quantity: 10,
 			purchase_price: 2166,
 			selling_price: 2500,
-			reorder_point: 2,
+			low_stock_threshold: 2,
 			category_id: categories[2].id,
 			image: "http://localhost:5001/images/products/jolimet.jpeg"
 		},
@@ -195,7 +195,7 @@ export const getProducts = (categories: ProductCategory[]) => {
 			quantity: 75,
 			purchase_price: 150,
 			selling_price: 175,
-			reorder_point: 25,
+			low_stock_threshold: 25,
 			category_id: categories[1].id,
 			image: "http://localhost:5001/images/products/mambo.webp"
 		},
@@ -205,7 +205,7 @@ export const getProducts = (categories: ProductCategory[]) => {
 			quantity: 110,
 			purchase_price: 600,
 			selling_price: 650,
-			reorder_point: 24,
+			low_stock_threshold: 24,
 			category_id: categories[2].id,
 			image: "http://localhost:5001/images/products/guiness.jpeg"
 		},
@@ -215,7 +215,7 @@ export const getProducts = (categories: ProductCategory[]) => {
 			quantity: 130,
 			purchase_price: 900,
 			selling_price: 1000,
-			reorder_point: 35,
+			low_stock_threshold: 35,
 			category_id: categories[3].id
 		},
 		{
@@ -224,7 +224,7 @@ export const getProducts = (categories: ProductCategory[]) => {
 			quantity: 40,
 			purchase_price: 500,
 			selling_price: 600,
-			reorder_point: 8,
+			low_stock_threshold: 8,
 			category_id: categories[0].id
 		},
 		{
@@ -233,7 +233,7 @@ export const getProducts = (categories: ProductCategory[]) => {
 			quantity: 20,
 			purchase_price: 400,
 			selling_price: 500,
-			reorder_point: 5,
+			low_stock_threshold: 5,
 			category_id: categories[6].id
 		},
 		{
@@ -242,7 +242,7 @@ export const getProducts = (categories: ProductCategory[]) => {
 			quantity: 40,
 			purchase_price: 200,
 			selling_price: 300,
-			reorder_point: 10,
+			low_stock_threshold: 10,
 			category_id: categories[5].id
 		},
 		{
@@ -251,7 +251,7 @@ export const getProducts = (categories: ProductCategory[]) => {
 			quantity: 60,
 			purchase_price: 385,
 			selling_price: 400,
-			reorder_point: 15,
+			low_stock_threshold: 15,
 			category_id: categories[4].id
 		},
 		{
@@ -260,7 +260,7 @@ export const getProducts = (categories: ProductCategory[]) => {
 			quantity: 40,
 			purchase_price: 250,
 			selling_price: 400,
-			reorder_point: 10,
+			low_stock_threshold: 10,
 			category_id: categories[3].id
 		},
 		{
@@ -269,7 +269,7 @@ export const getProducts = (categories: ProductCategory[]) => {
 			quantity: 40,
 			purchase_price: 450,
 			selling_price: 500,
-			reorder_point: 8,
+			low_stock_threshold: 8,
 			category_id: categories[1].id
 		},
 		{
@@ -278,7 +278,7 @@ export const getProducts = (categories: ProductCategory[]) => {
 			quantity: 10,
 			purchase_price: 2166,
 			selling_price: 2500,
-			reorder_point: 2,
+			low_stock_threshold: 2,
 			category_id: categories[2].id,
 			image: "http://localhost:5001/images/products/jolimet.jpeg"
 		}
