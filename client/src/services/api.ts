@@ -7,7 +7,7 @@ import storage from "utils/storage";
 export const api = axios.create({
 	baseURL:
 		import.meta.env.VITE_DEVICE === "remote"
-			? "http://192.168.100.10:5001"
+			? "http://10.0.0.247:5001"
 			: "http://localhost:5001"
 });
 
@@ -55,6 +55,7 @@ api.interceptors.response.use(
 			}
 		} else if (error.request) {
 			console.log("Request Error Interceptors");
+			console.log("error.response: ", error);
 		} else {
 			console.log("Error in api else", error);
 			console.log("Error in api else: message: ", error.message);

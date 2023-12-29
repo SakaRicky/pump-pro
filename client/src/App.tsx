@@ -26,7 +26,7 @@ function App() {
 
 	return (
 		<div className="app">
-			<IntlProvider locale={navigator.language} messages={message}>
+			<IntlProvider locale={state.language} messages={message}>
 				<LocalizationProvider dateAdapter={AdapterMoment}>
 					<BrowserRouter>
 						<ThemeProvider theme={theme}>

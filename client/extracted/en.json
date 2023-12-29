@@ -1,15 +1,35 @@
 {
-  "admin": {
-    "defaultMessage": "Admin"
+  "addDailySale": {
+    "defaultMessage": "Add Daily Sale"
   },
-  "daily": {
-    "defaultMessage": "Daily"
+  "cart.sale": {
+    "defaultMessage": "Save Sale"
+  },
+  "cartitem.delete": {
+    "defaultMessage": "Delete"
+  },
+  "dailySale": {
+    "defaultMessage": "Daily Sale"
   },
   "dashboard": {
     "defaultMessage": "Dashboard",
     "description": "Main title for the Dashboard page"
   },
+  "dateError": {
+    "defaultMessage": "Start and end dates must be different"
+  },
+  "form.fuel.heading": {
+  },
   "form.worker.heading": {
+  },
+  "from": {
+    "defaultMessage": "From"
+  },
+  "fuels": {
+    "defaultMessage": "Fuels"
+  },
+  "lacking": {
+    "defaultMessage": "Lacking"
   },
   "login": {
     "defaultMessage": "Login"
@@ -23,8 +43,14 @@
   "login.welcome": {
     "defaultMessage": "Welcome to PumpPro"
   },
+  "newDailySale": {
+    "defaultMessage": "New Daily Sale"
+  },
   "perfomance": {
     "defaultMessage": "Perfomance"
+  },
+  "performances": {
+    "defaultMessage": "Performances"
   },
   "product.card.addToCart": {
     "defaultMessage": "Add To Chart"
@@ -32,11 +58,62 @@
   "products": {
     "defaultMessage": "Products"
   },
+  "products.delete.fuel": {
+    "defaultMessage": "Delete Fuel"
+  },
+  "products.delete.product": {
+    "defaultMessage": "Delete Product"
+  },
+  "profits": {
+    "defaultMessage": "Profit"
+  },
+  "refillFuel": {
+    "defaultMessage": "Refill Fuel"
+  },
+  "role": {
+    "defaultMessage": "Role"
+  },
+  "salary": {
+    "defaultMessage": "Salary"
+  },
+  "salary.title": {
+    "defaultMessage": "Worker Salary"
+  },
+  "sale": {
+    "defaultMessage": "Sale"
+  },
+  "salebyform": {
+    "defaultMessage": "Sales By Form"
+  },
   "sales": {
     "defaultMessage": "Sales"
   },
+  "salesdetailpage.doneby": {
+    "defaultMessage": "Done by"
+  },
+  "salesdetailpage.on": {
+    "defaultMessage": "On the"
+  },
+  "salesdetailpage.total": {
+    "defaultMessage": "For a total of"
+  },
+  "salesform": {
+    "defaultMessage": "Sale Form"
+  },
   "shop": {
     "defaultMessage": "Shop"
+  },
+  "shopping.cart.amount.given": {
+    "defaultMessage": "Amount Given"
+  },
+  "shopping.cart.change": {
+    "defaultMessage": "Change"
+  },
+  "to": {
+    "defaultMessage": "To"
+  },
+  "total.sold": {
+    "defaultMessage": "Total Sold"
   },
   "upload.upload": {
     "defaultMessage": "Upload Picture"
@@ -73,6 +150,9 @@
   },
   "worker.card.menu.edit": {
     "defaultMessage": "Edit Worker"
+  },
+  "worker.card.menu.salary": {
+    "defaultMessage": "View Salary"
   },
   "workers": {
     "defaultMessage": "Workers"

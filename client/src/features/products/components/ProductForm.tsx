@@ -70,11 +70,14 @@ const ProductForm = forwardRef(
 
 		const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 			if (!e.target.files?.length) {
+				e.target.value = "";
 				return;
 			}
+
 			const uploadedPicture = e.target.files[0];
 			setPicture(uploadedPicture);
 			e.target.files = null;
+			e.target.value = "";
 		};
 
 		const createProductMutation = useMutation({
@@ -209,7 +212,7 @@ const ProductForm = forwardRef(
 								<TextInput
 									type="number"
 									label="Reorder Point"
-									name="reorder_point"
+									name="low_stock_threshold"
 								/>
 							</Grid>
 							<Grid item xs={12}>
