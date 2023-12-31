@@ -22,7 +22,7 @@ import { UseFuels } from "features/fuel/components/hooks/useFuels";
 export const getFuelFromFuels = (
 	fuels: Fuel[] | undefined
 ): Fuel | undefined => {
-	const fuel = fuels?.find(f => f.name === "Super");
+	const fuel = fuels?.find(f => f.name === "Fuel");
 	return fuel;
 };
 

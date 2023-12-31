@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Layout from "pages/layout";
 import Login from "pages/login";
 import Dashboard from "pages/dashboard";
@@ -34,6 +34,17 @@ function App() {
 
 							<Routes>
 								<Route element={<Layout />}>
+									<Route
+										path="/"
+										element={
+											!state.logedUser ? (
+												<Navigate to="/login" />
+											) : (
+												<Navigate to="/dashboard" />
+											)
+										}
+									/>
+
 									<Route path="/dashboard" element={<Dashboard />} />
 									<Route path="/products" element={<Products />} />
 									<Route path="/workers" element={<Workers />} />

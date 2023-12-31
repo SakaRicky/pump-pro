@@ -287,8 +287,8 @@ async function seed() {
 			description: "Fuel for normal petrol engines",
 			purchase_price: 650,
 			selling_price: 700,
-			quantity_theory: 25600,
-			quantity_actual: 25600,
+			quantity_theory: 5250,
+			quantity_actual: 5250,
 			tank_id: tank1.id
 		}
 	});
@@ -311,8 +311,8 @@ async function seed() {
 			description: "Petrol to be burnt of traditional Lamps",
 			purchase_price: 200,
 			selling_price: 250,
-			quantity_theory: 11400,
-			quantity_actual: 11400,
+			quantity_theory: 8700,
+			quantity_actual: 8700,
 			tank_id: tank3.id
 		}
 	});
