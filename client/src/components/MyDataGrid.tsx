@@ -9,7 +9,7 @@ import DataGridCustomToolbar from "components/DataGridCustumToolbar";
 import React, { useState } from "react";
 import { DailySale, Fuel, Product, Sale, SalesSummary } from "types";
 
-type ProductsDataGridProps = {
+type DataGridProps = {
 	isLoading: boolean;
 	checkboxSelection?: boolean;
 	rows: (Product | Sale | SalesSummary | DailySale | Fuel)[];
@@ -27,7 +27,7 @@ const MyDataGrid = ({
 	searchInput,
 	handleSelected,
 	handleRowClick
-}: ProductsDataGridProps) => {
+}: DataGridProps) => {
 	const theme = useTheme();
 
 	const [search, setSearch] = useState("");

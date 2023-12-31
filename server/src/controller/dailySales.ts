@@ -87,10 +87,6 @@ export const getDailySales = async (
 
 export const saveDailySale = async (req: Request, res: Response) => {
 	const newDailySale = validateNewDailySale(req.body);
-	console.log(
-		"🚀 ~ file: dailySales.ts:90 ~ saveDailySale ~ newDailySale:",
-		newDailySale
-	);
 
 	if (!newDailySale) {
 		throw new Error("No Sale to be save");

@@ -17,14 +17,12 @@ export const saveProduct = async (newUser: FormData) => {
 	}
 };
 
-// For now we get 1 and the same teacher the time to implement auth
 // This method returns a user(User) for display
 export const getProduct = async (id: string): Promise<Product> => {
 	const { data } = await api.get<Product>(`/products/${id}`);
 	return data;
 };
 
-// For now we get 1 and the same teacher the time to implement auth
 export const getProducts = async (categoryID?: string): Promise<Product[]> => {
 	const { data } = await api.get<Product[]>(`/products`, {
 		params: { categoryID: categoryID }
@@ -32,12 +30,7 @@ export const getProducts = async (categoryID?: string): Promise<Product[]> => {
 	return data;
 };
 
-// For now we get 1 and the same teacher the time to implement auth
 export const updateProduct = async (updateProduct: FormData) => {
-	console.log(
-		"🚀 ~ file: products.ts:37 ~ updateProduct ~ updateProduct:",
-		updateProduct
-	);
 	try {
 		const res = await api.put("/products", updateProduct, {
 			headers: { "Content-Type": "multipart/form-data" }
