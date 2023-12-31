@@ -23,7 +23,9 @@ const CartItem = ({ cartItem }: CartItemProps) => {
 				display: "flex",
 				gap: 2,
 				p: 1,
-				height: "11rem"
+				height: "11rem",
+				width: "100%",
+				border: `2px solid ${theme.palette.secondary[100]}`
 			}}
 		>
 			<Box sx={{ width: "20%", height: "100%" }}>
@@ -83,8 +85,7 @@ const CartItem = ({ cartItem }: CartItemProps) => {
 						sx={{
 							display: "flex",
 							gap: 1,
-							alignItems: "center",
-							width: "100%"
+							alignItems: "center"
 						}}
 					>
 						<Box
@@ -95,10 +96,9 @@ const CartItem = ({ cartItem }: CartItemProps) => {
 									backgroundColor: theme.palette.primary[400]
 								},
 								cursor: "pointer",
-								p: 0,
 								height: "1.6rem",
 								width: "1.6rem",
-								fontSize: "1.5rem",
+								fontSize: "1.2rem",
 								fontWeight: "700",
 								display: "flex",
 								alignItems: "center",
@@ -107,8 +107,9 @@ const CartItem = ({ cartItem }: CartItemProps) => {
 							}}
 							onClick={() => dispatch(incrementItemInCart(cartItem.id))}
 						>
-							+
+							<Box component="span">+</Box>
 						</Box>
+
 						<Box
 							sx={{
 								display: "flex",

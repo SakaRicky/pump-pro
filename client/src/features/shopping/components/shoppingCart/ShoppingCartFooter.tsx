@@ -25,8 +25,8 @@ const ShoppingCartFooter = ({
 		<Box
 			sx={{
 				border: `4px solid ${theme.palette.secondary[500]}`,
-				mt: 2
-				// p: 1
+				mt: 2,
+				p: 1
 			}}
 		>
 			<Box>

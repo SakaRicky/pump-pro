@@ -46,8 +46,6 @@ const ProductCard = ({ product }: ProductCardProps) => {
 	return (
 		<Box
 			sx={{
-				p: 2,
-				m: "0 auto",
 				boxShadow:
 					"rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;",
 				maxWidth: "17rem",
