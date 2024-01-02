@@ -30,7 +30,7 @@ import { DailySalePumpSale } from "./DailySalePumpSale";
 import { DailySaleGazSale } from "./DailySaleGazSale";
 import { green, red } from "@mui/material/colors";
 import { DailySaleStore } from "./DailySaleStore";
-import { UseFuels } from "features/fuel/components/hooks/useFuels";
+import { useFuels } from "features/fuel/components/hooks/useFuels";
 import {
 	getFuelFromFuels,
 	getGasoilFromFuels,
@@ -87,7 +87,7 @@ const DailySaleSaveForm = forwardRef(
 
 		const [saleMode, setSaleMode] = useState(modes[0]);
 
-		const { data, isLoading, error, refetch } = UseFuels();
+		const { data, isLoading, error, refetch } = useFuels();
 
 		const fuel = getFuelFromFuels(data);
 		const gasoil = getGasoilFromFuels(data);
@@ -100,6 +100,7 @@ const DailySaleSaveForm = forwardRef(
 			isStore: saleMode.id === "store",
 			amount_sold: 0,
 			amount_given: 0,
+			difference: 0,
 			date_of_sale_start: startDate,
 			date_of_sale_stop: stopDate,
 			user_id: "",

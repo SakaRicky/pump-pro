@@ -14,7 +14,7 @@ import { saveProduct, updateProduct } from "services/products";
 import { NewProduct, Product } from "types";
 import * as yup from "yup";
 import AddIcon from "@mui/icons-material/Add";
-import { UseProductCategories } from "../hooks/useProductCategory";
+import { useProductCategories } from "../hooks/useProductCategory";
 import CreatableSelectInput from "components/inputs/CreatableSelect";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import EditIcon from "@mui/icons-material/Edit";
@@ -33,7 +33,7 @@ const ProductForm = forwardRef(
 
 		const isMobile = useMediaQuery("(max-width: 900px)");
 
-		const { data, isLoading, error, refetch } = UseProductCategories();
+		const { data, isLoading, error, refetch } = useProductCategories();
 
 		const notify = useNotify();
 

@@ -18,7 +18,7 @@ import CreatableSelectInput from "components/inputs/CreatableSelect";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import EditIcon from "@mui/icons-material/Edit";
 import { saveFuel, updateFuel } from "services/fuel";
-import { UseFuels } from "./hooks/useFuels";
+import { useFuels } from "./hooks/useFuels";
 import { UseTanks } from "features/tank/hooks/useTank";
 import withAuth from "hoc/withAuth";
 
@@ -38,7 +38,7 @@ const FuelForm = forwardRef(
 			isLoading: fuelsIsLoading,
 			error: fuelsError,
 			refetch: refetchFuels
-		} = UseFuels();
+		} = useFuels();
 
 		const {
 			data: tankData,

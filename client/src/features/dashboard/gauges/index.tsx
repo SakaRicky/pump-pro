@@ -2,7 +2,7 @@ import React from "react";
 import { Box } from "@mui/material";
 import TankGauge from "features/fuel/components/TankGauge";
 import { FuelCategories } from "types";
-import { UseFuels } from "features/fuel/components/hooks/useFuels";
+import { useFuels } from "features/fuel/components/hooks/useFuels";
 import {
 	getFuelFromFuels,
 	getGasoilFromFuels,
@@ -10,7 +10,7 @@ import {
 } from "pages/fuel";
 
 export const DashboardGauges = () => {
-	const { data, isLoading, error, refetch } = UseFuels();
+	const { data, isLoading, error, refetch } = useFuels();
 
 	const fuel = getFuelFromFuels(data);
 	const gasoil = getGasoilFromFuels(data);

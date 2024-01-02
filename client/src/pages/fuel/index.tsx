@@ -17,7 +17,7 @@ import { deleteFuel } from "services/fuel";
 import { useNotify } from "hooks/useNotify";
 import FuelForm from "features/fuel/components/FuelForm";
 import withAuth from "hoc/withAuth";
-import { UseFuels } from "features/fuel/components/hooks/useFuels";
+import { useFuels } from "features/fuel/components/hooks/useFuels";
 
 export const getFuelFromFuels = (
 	fuels: Fuel[] | undefined
@@ -57,7 +57,7 @@ const Fuels = () => {
 		isLoading: isLoading,
 		error: fuelsError,
 		refetch: refetchFuels
-	} = UseFuels();
+	} = useFuels();
 
 	const [selectedFuelIDs, setSelectedFuelIDs] = useState<number[]>([]);
 

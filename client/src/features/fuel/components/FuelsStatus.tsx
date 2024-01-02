@@ -1,13 +1,14 @@
 import * as yup from "yup";
 import { Box, Grid } from "@mui/material";
 import { Form, Formik } from "formik";
-import { useFuels } from "hooks/useFuels";
+import { useFuels } from "./hooks/useFuels";
 import React from "react";
 import TextInput from "components/inputs/TextInput";
 
 export const FuelsStatus = () => {
-	const { fuels, fetchFuels, fuel, gasoil, petrol } = useFuels();
-	console.log("🚀 ~ file: Fuels.tsx:6 ~ Fuels ~ fuels:", fuels);
+	// const { data, isLoading, error, refetch } = useFuels();
+	// // const { fuels, fetchFuels, fuel, gasoil, petrol } = data;
+	// console.log("🚀 ~ file: Fuels.tsx:6 ~ Fuels ~ fuels:", data);
 
 	const initialFuelsValues = {
 		fuel_quantity: 0,

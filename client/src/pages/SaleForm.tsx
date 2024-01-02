@@ -2,7 +2,7 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import { MenuItem, Tab } from "@mui/material";
 import { Box, TextField, Typography } from "@mui/material";
 import { DateTimePicker } from "@mui/x-date-pickers";
-import { UseProductCategories } from "features/products/hooks/useProductCategory";
+import { useProductCategories } from "features/products/hooks/useProductCategory";
 import { useSalesSummary } from "features/sales/hooks/useSale";
 import withAuth from "hoc/withAuth";
 import { useNotify } from "hooks/useNotify";
@@ -25,7 +25,7 @@ const SalesByForm = () => {
 	};
 
 	const { data: productCategories, error: productCategoriesError } =
-		UseProductCategories();
+		useProductCategories();
 
 	const [selectedCategory, setSelectedCategoryID] = useState<ProductCategory>();
 

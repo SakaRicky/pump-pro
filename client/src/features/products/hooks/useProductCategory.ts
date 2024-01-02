@@ -5,7 +5,7 @@ import {
 	getProductCategory
 } from "services/productCategory";
 
-export const UseProductCategories = () => {
+export const useProductCategories = () => {
 	const query = useQuery<ProductCategory[], Error>({
 		queryKey: ["productCategories"],
 		queryFn: getProductCategories,
@@ -15,7 +15,7 @@ export const UseProductCategories = () => {
 	return query;
 };
 
-export const UseProductCategory = (productCategoryId: string) => {
+export const useProductCategory = (productCategoryId: string) => {
 	const query = useQuery<ProductCategory | undefined, Error>({
 		queryKey: ["productCategory", productCategoryId],
 		queryFn: () => getProductCategory(productCategoryId),

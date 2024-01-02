@@ -92,7 +92,7 @@ export const reducer = (state: State, action: Action): State => {
 		case "INCREMENT_ITEM_IN_CART": {
 			const newCartItems = state.cartItems.map(item => {
 				if (item.id === action.payload) {
-					if (item.quatity_in_stock === item.quantity) {
+					if (item.quantity_in_stock === item.quantity) {
 						return item;
 					}
 					return { ...item, quantity: item.quantity + 1 };

@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Fuel } from "types";
 import { getFuel, getFuels } from "services/fuel";
 
-export const UseFuels = () => {
+export const useFuels = () => {
 	const query = useQuery<Fuel[], Error>({
 		queryKey: ["fuels"],
 		queryFn: () => getFuels()
@@ -11,7 +11,7 @@ export const UseFuels = () => {
 	return query;
 };
 
-export const UseFuel = (fuelID: string) => {
+export const useFuel = (fuelID: string) => {
 	const query = useQuery<Fuel, Error>({
 		queryKey: ["fuel"],
 		queryFn: () => getFuel(fuelID),
