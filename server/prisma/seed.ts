@@ -61,7 +61,7 @@ async function seed() {
 			password_hash:
 				"$2a$12$TCL9gaFusbLlVRk.o47Z6.u13X/EmQlZFARCBC9ZOehLVo050QOje",
 			profile_picture:
-				"https://images.unsplash.com/photo-1596077058573-d3d8281a190f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+				"https://res.cloudinary.com/rickysaka/image/upload/v1704234935/pumppro/users/qgbhukpnskvikw1moqbi.avif",
 			role: "SALE"
 		}
 	});
@@ -96,7 +96,7 @@ async function seed() {
 			password_hash:
 				"$2a$12$TCL9gaFusbLlVRk.o47Z6.u13X/EmQlZFARCBC9ZOehLVo050QOje",
 			profile_picture:
-				"https://plus.unsplash.com/premium_photo-1661597221998-24a4fc0b730a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+				"https://res.cloudinary.com/rickysaka/image/upload/v1704234936/pumppro/users/oiwkqxy53xjvfcpyulyz.avif",
 			role: "SALE"
 		}
 	});

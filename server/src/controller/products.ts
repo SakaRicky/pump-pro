@@ -6,6 +6,7 @@ import {
 	validateNewProduct
 } from "../utils/validateData";
 import { NewProduct } from "../types";
+import { uploadImage } from "../utils/uploadImage";
 
 const prisma = new PrismaClient();
 
@@ -70,8 +71,9 @@ export const getOneProduct = async (req: Request, res: Response) => {
 
 export const saveProduct = async (req: RequestWithToken, res: Response) => {
 	const newProduct = validateNewProduct(req.body);
-	const fileUrl = `${req.protocol}://${req.get("host")}/${req.file?.path}`;
-	const fileSavedName = fileUrl.split("/").pop();
+
+	const reqFile = req.file as Express.Multer.File;
+	const imageURL = await uploadImage(reqFile, "products");
 
 	if (newProduct) {
 		const savedProduct = await prisma.product.create({
@@ -83,12 +85,9 @@ export const saveProduct = async (req: RequestWithToken, res: Response) => {
 				quantity: newProduct.quantity,
 				low_stock_threshold: newProduct.low_stock_threshold,
 				selling_price: newProduct.selling_price,
-				image: req.file
-					? `http://localhost:5001/images/products/${fileSavedName}`
-					: ""
+				image: imageURL
 			}
 		});
-
 		await prisma.purchase.create({
 			data: {
 				product_id: savedProduct.id,
@@ -104,8 +103,8 @@ export const updateProduct = async (req: RequestWithToken, res: Response) => {
 		id: string;
 	};
 
-	const fileUrl = `${req.protocol}://${req.get("host")}/${req.file?.path}`;
-	const fileSavedName = fileUrl.split("/").pop();
+	const reqFile = req.file as Express.Multer.File;
+	const imageURL = req.file ? await uploadImage(reqFile, "products") : "";
 
 	if (editedProduct) {
 		await prisma.product.update({
@@ -118,9 +117,7 @@ export const updateProduct = async (req: RequestWithToken, res: Response) => {
 				quantity: editedProduct.quantity,
 				low_stock_threshold: editedProduct.low_stock_threshold,
 				selling_price: editedProduct.selling_price,
-				image: req.file
-					? `http://localhost:5001/images/products/${fileSavedName}`
-					: editedProduct.image
+				image: req.file ? imageURL : editedProduct.image
 			}
 		});
 		return res.sendStatus(200);

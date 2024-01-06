@@ -10,7 +10,8 @@ export const getProducts = (categories: ProductCategory[]) => {
 			selling_price: 175,
 			low_stock_threshold: 25,
 			category_id: categories[1].id,
-			image: "http://localhost:5001/images/products/mambo.webp"
+			image:
+				"https://res.cloudinary.com/rickysaka/image/upload/v1704262313/pumppro/products/unh7iikkkxynza1cehzh.jpg"
 		},
 		{
 			name: "Guiness PM 30CL",
@@ -20,7 +21,8 @@ export const getProducts = (categories: ProductCategory[]) => {
 			selling_price: 650,
 			low_stock_threshold: 24,
 			category_id: categories[2].id,
-			image: "http://localhost:5001/images/products/guiness.jpeg"
+			image:
+				"https://res.cloudinary.com/rickysaka/image/upload/v1704262267/pumppro/products/aqamczmtz5b87zvmbdv9.jpg"
 		},
 		{
 			name: "Guiness GM 30CL",
@@ -29,7 +31,9 @@ export const getProducts = (categories: ProductCategory[]) => {
 			purchase_price: 900,
 			selling_price: 1000,
 			low_stock_threshold: 35,
-			category_id: categories[3].id
+			category_id: categories[3].id,
+			image:
+				"https://res.cloudinary.com/rickysaka/image/upload/v1704262358/pumppro/products/cepf7d2emlrcjxstz0n9.jpg"
 		},
 		{
 			name: "Djino Cocktail 1L",
@@ -57,7 +61,8 @@ export const getProducts = (categories: ProductCategory[]) => {
 			selling_price: 300,
 			low_stock_threshold: 10,
 			category_id: categories[5].id,
-			image: "http://localhost:5001/images/products/sita.webp"
+			image:
+				"https://res.cloudinary.com/rickysaka/image/upload/v1704262428/pumppro/products/bzakglvcxaazs1pnuruv.jpg"
 		},
 		{
 			name: "Dolait (Boite)",
@@ -94,7 +99,8 @@ export const getProducts = (categories: ProductCategory[]) => {
 			selling_price: 2500,
 			low_stock_threshold: 2,
 			category_id: categories[2].id,
-			image: "http://localhost:5001/images/products/jolimet.jpeg"
+			image:
+				"https://res.cloudinary.com/rickysaka/image/upload/v1704262517/pumppro/products/xzibxpjonv3idu0bxyej.jpg"
 		},
 		{
 			name: "Mambo PM 25g New",
@@ -104,7 +110,8 @@ export const getProducts = (categories: ProductCategory[]) => {
 			selling_price: 175,
 			low_stock_threshold: 25,
 			category_id: categories[1].id,
-			image: "http://localhost:5001/images/products/mambo.webp"
+			image:
+				"https://res.cloudinary.com/rickysaka/image/upload/v1704262470/pumppro/products/ncnppmvqcn5jzpb3tj3q.png"
 		},
 		{
 			name: "Guiness PM 30CL New",
@@ -114,7 +121,8 @@ export const getProducts = (categories: ProductCategory[]) => {
 			selling_price: 650,
 			low_stock_threshold: 24,
 			category_id: categories[2].id,
-			image: "http://localhost:5001/images/products/guiness.jpeg"
+			image:
+				"https://res.cloudinary.com/rickysaka/image/upload/v1704262267/pumppro/products/aqamczmtz5b87zvmbdv9.jpg"
 		},
 		{
 			name: "Guiness GM 30CL New",
@@ -187,7 +195,8 @@ export const getProducts = (categories: ProductCategory[]) => {
 			selling_price: 2500,
 			low_stock_threshold: 2,
 			category_id: categories[2].id,
-			image: "http://localhost:5001/images/products/jolimet.jpeg"
+			image:
+				"https://res.cloudinary.com/rickysaka/image/upload/v1704262517/pumppro/products/xzibxpjonv3idu0bxyej.jpg"
 		},
 		{
 			name: "Mambo PM 25g NEW NEW",
@@ -197,7 +206,8 @@ export const getProducts = (categories: ProductCategory[]) => {
 			selling_price: 175,
 			low_stock_threshold: 25,
 			category_id: categories[1].id,
-			image: "http://localhost:5001/images/products/mambo.webp"
+			image:
+				"https://res.cloudinary.com/rickysaka/image/upload/v1704262470/pumppro/products/ncnppmvqcn5jzpb3tj3q.png"
 		},
 		{
 			name: "Guiness PM 30CL NEW NEW",
@@ -207,7 +217,8 @@ export const getProducts = (categories: ProductCategory[]) => {
 			selling_price: 650,
 			low_stock_threshold: 24,
 			category_id: categories[2].id,
-			image: "http://localhost:5001/images/products/guiness.jpeg"
+			image:
+				"https://res.cloudinary.com/rickysaka/image/upload/v1704262313/pumppro/products/unh7iikkkxynza1cehzh.jpg"
 		},
 		{
 			name: "Guiness GM 30CL NEW NEW",
@@ -280,7 +291,8 @@ export const getProducts = (categories: ProductCategory[]) => {
 			selling_price: 2500,
 			low_stock_threshold: 2,
 			category_id: categories[2].id,
-			image: "http://localhost:5001/images/products/jolimet.jpeg"
+			image:
+				"https://res.cloudinary.com/rickysaka/image/upload/v1704262517/pumppro/products/xzibxpjonv3idu0bxyej.jpg"
 		}
 	];
 };

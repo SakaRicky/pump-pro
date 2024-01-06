@@ -4,6 +4,7 @@ import bcrypt from "bcrypt";
 import { RequestWithToken } from "../utils/middleware";
 import { validateEditedUser, validateNewUser } from "../utils/validateData";
 import { NewUser } from "../types";
+import { uploadImage } from "../utils/uploadImage";
 
 const prisma = new PrismaClient();
 
@@ -72,8 +73,9 @@ export const getOneUser = async (req: Request, res: Response) => {
 
 export const saveUser = async (req: RequestWithToken, res: Response) => {
 	const newUser = validateNewUser(req.body);
-	const fileUrl = `${req.protocol}://${req.get("host")}/${req.file?.path}`;
-	const fileSavedName = fileUrl.split("/").pop();
+
+	const reqFile = req.file as Express.Multer.File;
+	const imageURL = await uploadImage(reqFile, "users");
 
 	if (newUser) {
 		const saltRounds = 10;
@@ -95,9 +97,7 @@ export const saveUser = async (req: RequestWithToken, res: Response) => {
 				CNI_number: newUser.CNI_number,
 				password_hash: password_hash,
 				role: newUser.role,
-				profile_picture: req.file
-					? `http://localhost:5001/images/users/${fileSavedName}`
-					: ""
+				profile_picture: imageURL
 			}
 		});
 		return res.sendStatus(200);
@@ -106,8 +106,10 @@ export const saveUser = async (req: RequestWithToken, res: Response) => {
 
 export const updateUser = async (req: RequestWithToken, res: Response) => {
 	const editedUser = validateEditedUser(req.body) as NewUser & { id: string };
-	const fileUrl = `${req.protocol}://${req.get("host")}/${req.file?.path}`;
-	const fileSavedName = fileUrl.split("/").pop();
+
+	const reqFile = req.file as Express.Multer.File;
+	const imageURL = req.file ? await uploadImage(reqFile, "users") : "";
+
 	const existingUser = await prisma.user.findUnique({
 		where: { id: editedUser.id }
 	});
@@ -136,9 +138,7 @@ export const updateUser = async (req: RequestWithToken, res: Response) => {
 					? password_hash
 					: existingUser?.password_hash,
 				role: editedUser.role,
-				profile_picture: req.file
-					? `http://localhost:5001/images/users/${fileSavedName}`
-					: ""
+				profile_picture: imageURL
 			}
 		});
 		return res.sendStatus(200);

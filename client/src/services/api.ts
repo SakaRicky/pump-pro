@@ -5,10 +5,7 @@ import { ConnectionError } from "errors/connectionError";
 import storage from "utils/storage";
 
 export const api = axios.create({
-	baseURL:
-		import.meta.env.VITE_DEVICE === "remote"
-			? "http://10.0.0.247:5001"
-			: "http://localhost:5001"
+	baseURL: "/api"
 });
 
 const requestInterceptor = (config: AxiosRequestConfig) => {

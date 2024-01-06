@@ -8,7 +8,6 @@ import bodyParser from "body-parser";
 import authRouter from "./routes/auth";
 import usersRoute from "./routes/user";
 import { errorHandler } from "./errors";
-import path from "path";
 import { checkTokenExistence, tokenExtractor } from "../middlewares/jwt";
 import productsRoutes from "./routes/products";
 import categoriesRoutes from "./routes/categories";
@@ -30,13 +29,13 @@ const corsOptions = {
 		"http://192.168.100.10:3000",
 		"http://192.168.100.10:5173",
 		"http://10.0.0.247:5173",
-		"http://10.0.0.85:5173"
+		"http://10.0.0.85:5173",
+		"https://res.cloudinary.com/rickysaka/"
 	],
 	credentials: true,
 	optionSuccessStatus: 200
 };
 app.use(cors(corsOptions));
-app.use(express.static(path.join(path.resolve(__dirname, ".."), "public")));
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -54,18 +53,22 @@ app.use(setHeaders);
 
 app.use(requestLogger);
 
-app.use("/auth", authRouter);
+app.use("/api/auth", authRouter);
 app.use(tokenExtractor);
 app.use(checkTokenExistence);
-app.use("/users", usersRoute);
-app.use("/products", productsRoutes);
-app.use("/categories", categoriesRoutes);
-app.use("/sales", salesRoutes);
-app.use("/salessummary", salesSummaryRoutes);
-app.use("/daily-sales", dailySalesRoutes);
-app.use("/fuel", fuelsRoutes);
-app.use("/tank", tankRoutes);
-app.use("/messages", messageNotificationsRoutes);
+app.use("/api/users", usersRoute);
+app.use("/api/products", productsRoutes);
+app.use("/api/categories", categoriesRoutes);
+app.use("/api/sales", salesRoutes);
+app.use("/api/salessummary", salesSummaryRoutes);
+app.use("/api/daily-sales", dailySalesRoutes);
+app.use("/api/fuel", fuelsRoutes);
+app.use("/api/tank", tankRoutes);
+app.use("/api/messages", messageNotificationsRoutes);
+
+// app.use("*", (_req, res) =>
+// 	res.sendFile(path.join(__dirname, "..", "dist", "index.html"))
+// );
 
 app.use(unknownEndpoint);
 app.use(errorHandler);

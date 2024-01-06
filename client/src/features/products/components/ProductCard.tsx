@@ -51,6 +51,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
 				maxWidth: "17rem",
 				cursor: "pointer",
 				position: "relative",
+				p: "5px",
 				backgroundColor: theme.palette.background.default
 			}}
 		>
@@ -107,7 +108,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
 					XAF {product.selling_price}
 				</Typography>
 			</Box>
-			<Box m="1rem 0" sx={{ display: "flex", gap: "5px" }}>
+			<Box m="1rem 0" sx={{ display: "flex", gap: "5px", p: "16px" }}>
 				<TextField
 					type="number"
 					size="small"

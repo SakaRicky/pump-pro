@@ -41,7 +41,7 @@
 	"scripts": {
 		"start": "vite --host",
 		"dev:remote": "VITE_DEVICE=remote vite --mode=development --host",
-		"dev:local": "vite --mode=development --host",
+		"dev": "vite --mode=development --host",
 		"test": "vite --mode=test --host",
 		"build": "tsc && vite build",
 		"serve": "vite preview",

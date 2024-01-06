@@ -1,6 +1,6 @@
 import express, { RequestHandler } from "express";
 
-import { upload } from "../utils/multer";
+import multerUtils from "../utils/multer";
 import asyncHandler from "express-async-handler";
 import { checkIfAdmin } from "../../middlewares/jwt";
 import {
@@ -24,14 +24,14 @@ productsRoutes.get(
 productsRoutes.post(
 	"/",
 	checkIfAdmin,
-	upload.single("file"),
+	multerUtils.multerUploads,
 	asyncHandler(saveProduct as RequestHandler)
 );
 
 productsRoutes.put(
 	"/",
 	checkIfAdmin,
-	upload.single("file"),
+	multerUtils.multerUploads,
 	asyncHandler(updateProduct as RequestHandler)
 );
 

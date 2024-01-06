@@ -6,7 +6,7 @@ import {
 	updateUser,
 	deleteUser
 } from "../controller/users";
-import { upload } from "../utils/multer";
+import multerUtils from "../utils/multer";
 import asyncHandler from "express-async-handler";
 import { checkIfAdmin } from "../../middlewares/jwt";
 
@@ -18,14 +18,14 @@ usersRoute.get("/:id", asyncHandler(getOneUser as RequestHandler));
 usersRoute.post(
 	"/",
 	checkIfAdmin,
-	upload.single("file"),
+	multerUtils.multerUploads,
 	asyncHandler(saveUser as RequestHandler)
 );
 
 usersRoute.put(
 	"/",
 	checkIfAdmin,
-	upload.single("file"),
+	multerUtils.multerUploads,
 	asyncHandler(updateUser as RequestHandler)
 );
 
